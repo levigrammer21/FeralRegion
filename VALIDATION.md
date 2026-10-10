@@ -1,4 +1,4 @@
-# Validation — Feral Regions 1.2.0
+# Validation — Feral Regions 1.2.1
 
 ## Automated checks
 
@@ -50,3 +50,5 @@ A controlled 20-game-minute starting-town run with one gym, a 64-tile beginner a
 ## 1.2 placement and entry checks
 
 All 26 simulation/save checks pass, including all-lawn new worlds. The DOM/Canvas event harness passes login gating, no simulation/save before login, signed-out gate reopening, neutral Build panning, fresh menu selection, building drag preview, cancellation, pinch cancellation, palette drag/drop with price confirmation, and disarming after placement. Existing panel and stable battle-canvas checks pass. Firebase is mocked in the event harness; live provider login and actual phone touch/render performance require checking on the published GitHub Pages site. No browser or device verification is claimed.
+
+1.2.1: mocked authentication checks pass for IndexedDB → session → memory fallback, signup quota recovery without duplicate account creation, and credential errors. Live Firebase login still requires device verification.

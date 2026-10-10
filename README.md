@@ -2,7 +2,7 @@
 
 **Build a world. Watch a legend.**
 
-Version 1.2.0 · static GitHub Pages project · all files at repository root
+Version 1.2.1 · static GitHub Pages project · all files at repository root
 
 Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, controls, and gameplay.
 

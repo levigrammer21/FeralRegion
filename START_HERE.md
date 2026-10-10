@@ -1,4 +1,4 @@
-# Feral Regions — 1.2.0
+# Feral Regions — 1.2.1
 
 A complete, buildless browser tycoon for your phone and iPad. Build the region, set the gym teams, and watch independent trainers become champions.
 

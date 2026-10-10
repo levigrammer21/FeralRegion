@@ -1,3 +1,7 @@
+# 1.2.1
+
+- Fix login failure when localStorage is full: prefer IndexedDB, fall back to session storage or memory. Handle quota failures during sign-in without deleting any region saves.
+
 # 1.2.0
 
 - Login/create-account screen before gameplay; signed-out simulation and autosaves are blocked. Existing account saves restore locally; old guest saves remain recoverable. Cloud load/save stays explicit.
