@@ -1,3 +1,10 @@
+# 1.2.0
+
+- Login/create-account screen before gameplay; signed-out simulation and autosaves are blocked. Existing account saves restore locally; old guest saves remain recoverable. Cloud load/save stays explicit.
+- All new terrain is short green grass, including expansion land. Existing maps are preserved.
+- Build and category changes select no tool. One-finger dragging pans safely until a tool is chosen.
+- Drag building cards onto the map, or select then drag on the map. Translucent previews show individual green/red footprint squares and the entrance. Release then confirm price. Cancel/pinch never commits; placement disarms the tool.
+
 # 1.1.0 — Build your own beginning
 
 ## Starting a region

@@ -1,4 +1,4 @@
-# Validation — Feral Regions 1.1.0
+# Validation — Feral Regions 1.2.0
 
 ## Automated checks
 
@@ -46,3 +46,7 @@ The accelerated eight-gym fixture tests the complete progression state flow, not
 Additional update checks cover area persistence, custom rosters and badge gates, one capture attempt per encounter, avoiding catches of reserve-owned species, and active-team rebalancing. The event harness also creates, names, paints and opens an area. Native Canvas rendering verified the map marker/boundary and incremental terrain repaint.
 
 A controlled 20-game-minute starting-town run with one gym, a 64-tile beginner area and default pricing ended with seven trainers, eight catches, two awarded badges, and $3,134 remaining after deducting the initial town, gym, area and path costs. This is one seeded scenario, not a guarantee for every layout or random outcome.
+
+## 1.2 placement and entry checks
+
+All 26 simulation/save checks pass, including all-lawn new worlds. The DOM/Canvas event harness passes login gating, no simulation/save before login, signed-out gate reopening, neutral Build panning, fresh menu selection, building drag preview, cancellation, pinch cancellation, palette drag/drop with price confirmation, and disarming after placement. Existing panel and stable battle-canvas checks pass. Firebase is mocked in the event harness; live provider login and actual phone touch/render performance require checking on the published GitHub Pages site. No browser or device verification is claimed.

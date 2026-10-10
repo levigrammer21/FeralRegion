@@ -2,7 +2,7 @@
 
 **Build a world. Watch a legend.**
 
-Version 1.1.0 · static GitHub Pages project · all files at repository root
+Version 1.2.0 · static GitHub Pages project · all files at repository root
 
 Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, controls, and gameplay.
 
@@ -40,7 +40,7 @@ Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, cont
 
 Optional: `npm test` or `node tests.mjs` with a modern Node runtime. No dependencies to install. Tests do not contact Firebase or modify any remote project.
 
-The game uses browser-native modules and Canvas. Firebase SDK modules are loaded lazily from Google’s CDN, so network failure does not prevent guest gameplay. The Firebase browser configuration is public app configuration; authorization is enforced by Authentication and Firestore rules.
+The game uses browser-native modules and Canvas. Firebase SDK modules load from Google’s CDN. Google or email/password authentication is required before entering the game; connection errors stay on the login screen. Existing authenticated sessions restore automatically when Firebase is available. The Firebase browser configuration is public app configuration; authorization is enforced by Authentication and Firestore rules.
 
 Each account has one region. The world is a private local simulation with synchronized saves, not shared multiplayer. Cloud saves are limited to an 850 KB serialized payload and display an actionable error instead of silently truncating a region. The built-in population and history caps keep ordinary regions below this limit.
 

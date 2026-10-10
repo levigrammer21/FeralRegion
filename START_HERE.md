@@ -1,4 +1,4 @@
-# Feral Regions — 1.1.0
+# Feral Regions — 1.2.0
 
 A complete, buildless browser tycoon for your phone and iPad. Build the region, set the gym teams, and watch independent trainers become champions.
 
@@ -7,7 +7,7 @@ A complete, buildless browser tycoon for your phone and iPad. Build the region, 
 1. Extract this ZIP. It creates one folder named Feral-Regions containing the game files.
 2. Upload **the files directly into the repository root**. `index.html`, `app.js`, and all the other files sit beside each other. Open the extracted Feral-Regions folder and upload its contents, not the containing folder.
 3. In the repository, open **Settings → Pages**. Publish from your branch and the **root** folder.
-4. Open the GitHub Pages URL. You can immediately play as a guest.
+4. Open the GitHub Pages URL. The first screen is Log in / Create account. Complete the Firebase setup below to enable entry.
 
 No terminal, npm, build service, or PC is needed to publish or play. Do not double-click index.html as a local file; use the published website.
 
@@ -23,7 +23,7 @@ In [Firebase Console](https://console.firebase.google.com/):
 4. Open **Firestore Database** and create the database if it does not exist.
 5. In Firestore’s **Rules** tab, publish the contents of `firestore.rules`. These rules allow each signed-in account to read and write only its own region. If this project already serves other apps, merge this file’s `/regions/{uid}` rule into the existing rules instead of discarding their rules.
 
-In the game, open **Account** at the upper right. Sign in with Google or email/password, then choose **Save this region**. On another device, sign in and choose **Load cloud region**.
+Sign in with Google or email/password on the opening screen. Then open **Account** at the upper right and choose **Save this region**. On another device, sign in and choose **Load cloud region**.
 
 Sign-in alone does not overwrite either copy. Cloud autosave starts after you explicitly load or save a region. If another device saves a newer version, automatic uploads stop and ask you to choose which copy to keep.
 
@@ -33,11 +33,11 @@ Official references: [Firebase web setup](https://firebase.google.com/docs/web/s
 
 ## 3. Play
 
-Your region opens with $5,500 and empty land. There are no buildings, painted paths, trainers, or pre-generated Elite Four members. The on-screen guide helps you place a lab, healing lodge, supply shop, your own route, and a marked catching area. Open admissions when ready.
+Your region opens with $5,500 and nothing but short green grass across the entire map. There are no buildings, painted paths, trainers, or pre-generated Elite Four members. The on-screen guide helps you place a lab, healing lodge, supply shop, your own route, and a marked catching area. Open admissions when ready.
 
 - **Watch:** Drag to pan, pinch to zoom, tap trainers, buildings, or battles. Follow a trainer from their profile.
-- **Build:** Paint with one finger; pan and zoom with two. The hand tool pans with one finger. Tap to place a building and confirm its price. Build mode pauses the simulation.
-- **Move:** Tap a building → Move → tap the new position. Relocation costs $80.
+- **Build:** Opens with nothing selected. Drag to pan safely. Pick a terrain brush to paint, or drag a building card onto the map. You can also select a building and drag on the map to position it. Green/red squares show its footprint and a separate square marks the entrance. Release to review the price and confirm. Placement clears the selected tool. Two fingers pan/zoom; the hand tool returns to safe panning. Build mode pauses the simulation.
+- **Move:** Tap a building → Move → drag to the new position. Relocation costs $80.
 - **Gym control:** Tap a gym → Edit leader, badge & team. Choose 1–6 Ferals, individual levels, and up to four moves per Feral.
 - **Catching areas:** Build → Areas → New area. Give it a name, choose a biome, levels, optional badge requirement and roster. Tap Paint / expand, brush its boundary, then Edit / open area → Open to trainers. The map shows a numbered flag, name, levels and boundary. Natural terrain does not generate encounters outside open marked areas.
 - **Expansion:** Tap the region name → Expand the region. Purchase adjacent land and connect it with routes and bridges.
@@ -99,3 +99,5 @@ Account → Export JSON downloads a portable backup. Import JSON validates the f
 ## Verification
 
 See `VALIDATION.md` for the checks completed and the remaining device/cloud verification limits.
+
+Existing regions keep their terrain. Use Account → Start a new empty region for an all-grass map. A previous guest save can be recovered from Account after signing in. Sign-in requires Firebase access; a failed connection stays on the login screen and preserves saves.
