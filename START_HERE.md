@@ -1,4 +1,4 @@
-# Feral Regions — 1.0.0
+# Feral Regions — 1.1.0
 
 A complete, buildless browser tycoon for your phone and iPad. Build the region, set the gym teams, and watch independent trainers become champions.
 
@@ -33,27 +33,45 @@ Official references: [Firebase web setup](https://firebase.google.com/docs/web/s
 
 ## 3. Play
 
-Your region opens with $8,500, a starter lab, healing lodge, supply shop, and the first gym.
+Your region opens with $5,500 and empty land. There are no buildings, painted paths, trainers, or pre-generated Elite Four members. The on-screen guide helps you place a lab, healing lodge, supply shop, your own route, and a marked catching area. Open admissions when ready.
 
 - **Watch:** Drag to pan, pinch to zoom, tap trainers, buildings, or battles. Follow a trainer from their profile.
 - **Build:** Paint with one finger; pan and zoom with two. The hand tool pans with one finger. Tap to place a building and confirm its price. Build mode pauses the simulation.
 - **Move:** Tap a building → Move → tap the new position. Relocation costs $80.
 - **Gym control:** Tap a gym → Edit leader, badge & team. Choose 1–6 Ferals, individual levels, and up to four moves per Feral.
-- **Habitat control:** Tap the region name → Wild habitats. Adjust the level range and optional species list for each biome.
+- **Catching areas:** Build → Areas → New area. Give it a name, choose a biome, levels, optional badge requirement and roster. Tap Paint / expand, brush its boundary, then Edit / open area → Open to trainers. The map shows a numbered flag, name, levels and boundary. Natural terrain does not generate encounters outside open marked areas.
 - **Expansion:** Tap the region name → Expand the region. Purchase adjacent land and connect it with routes and bridges.
-- **League:** Build eight gyms and the Elite Four hall. Founding masters take the four seats. Residents with eight badges queue to challenge.
+- **League:** Build eight gyms and the Elite Four hall. All four seats start empty. Your own eight-badge trainers claim the vacant ranks, then defend them. Residents with eight badges queue to challenge.
+
+### Updating from 1.0
+
+Replace the old repository files with the files inside this ZIP’s Feral-Regions folder, including the new `sprites.js` file. Refresh after deployment. Existing saves keep their money, trainers, levels, badges, and buildings while receiving the new graphics, pacing, and performance changes. Existing owned habitat tiles are converted to marked, editable areas labeled Imported. Existing residents above the new cap are retained; admissions wait until there is room.
+
+To experience the new build-it-yourself opening, choose **Account → Start a new empty region**. Your previous region is archived on this device and can be restored from Account. Cloud uploads pause until you explicitly save the new region. This does not automatically delete or overwrite the cloud copy.
+
+### How a trainer chooses a gym
+
+The trainer considers their lowest-numbered missing gym. Their strongest Feral must reach at least 93% of that gym’s highest level (rounded up to the next whole level), and their team must have more than 65% combined health. The gym must be free and reachable. Healing and supply needs are handled first.
+
+After a gym loss, the trainer has a 180-game-second training break. After a badge win, they wait 150 game-seconds before considering the next gym. A trainer profile now explains the next gym goal and what is preventing a challenge.
 
 ### Elite Four rules
 
-Only one challenger enters at a time. Beat #4 and that trainer is out; the challenger becomes #4. Then challenge #3. A win swaps their ranks. Continue through #2 and #1. **#1 is the champion.**
+Only one challenger enters at a time. A vacant rank is claimed without a fight, moving upward through any vacant ranks before challenging an incumbent. Once seats are occupied, beat #4 and that trainer is out; the challenger becomes #4. Then challenge #3. A win swaps their ranks. Continue through #2 and #1. **#1 is the champion.**
 
 If the challenger loses before winning a seat, they return to training and can retry later. If they have already gained a seat, they retain the rank reached. A displaced #4 returns to adventuring. Current Elite Four members remain at the hall, waiting for challengers. Teams heal between ranked matches.
 
 ### Growing your region
 
-Trainers arrive over time and choose a starter. They catch weakened wild Ferals with binding orbs, carry up to six teammates and six reserves, earn field-research money, buy supplies, train, heal, and pursue badges. Their teams, inventories, money, records, and histories persist.
+After you open admissions, trainers arrive roughly every 150–210 game-seconds and choose a starter. The total population cap starts at six and increases by six for each gym: 6, 12, 18, 24, 30, 36, 42, 48, and 54 with all eight gyms. Elite Four residents count toward this total. Land does not increase the cap. Every newcomer starts at your lab in the starting town. Pause new arrivals from the region menu whenever you want. They catch weakened wild Ferals with binding orbs, carry up to six teammates and six reserves, earn field-research money, buy supplies, train, heal, and pursue badges. Their teams, inventories, money, records, and histories persist.
 
-Revenue comes from shops, healing, gym entry, the League, and cafés. Supplies and daily building upkeep cost money. Regional grants fund milestones. Trainer wallets are independent of your treasury; external research rewards and guild stipends keep the trainer economy moving.
+Trainers try one binding orb on an unfamiliar species once it is below 40% health. They hold back a knockout blow when preparing a catch. Catch odds are roughly 2.5%–22%, influenced by species rarity, health, level difference, and status. A failed attempt ends catching for that encounter; they finish the battle instead of repeatedly throwing orbs. Species already in the active team or reserve are not targeted.
+
+Active teammates share battle XP, with participants earning more. After catches and healing, trainers rebalance their active six using strength and elemental variety. Up to six additional Ferals stay in reserve. If all twelve slots are full, a new successful catch replaces a weak reserve.
+
+Revenue comes from shops, healing, gym entry, the League, and cafés. Supplies and daily building upkeep cost money. Regional grants fund milestones, with much smaller payouts than 1.0. The first catch pays $125, ten battles $200, and the first badge $400. Trainer research rewards, badge prizes, and daily stipends are also reduced. Trainer wallets are independent of your treasury; external research rewards and guild stipends keep the trainer economy moving.
+
+XP rewards are reduced and next-level requirements follow `60 + 18 × level + level²`. Fighting much weaker Ferals gives less XP; benched team members get a smaller share. Higher levels therefore take progressively longer.
 
 A day lasts four minutes at 1×. Use pause, 1×, 2×, or 4×. **The world does not progress while the app is closed or hidden.**
 

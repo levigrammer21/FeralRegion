@@ -1,51 +1,48 @@
-# Validation — Feral Regions 1.0.0
+# Validation — Feral Regions 1.1.0
 
-## Automated checks completed
+## Automated checks
 
-`node tests.mjs` — 16 passing checks:
+`node tests.mjs`: 26 checks, all passing.
 
-1. Autonomous arrival, starter choice, capture, supply purchases, healing, badge wins, and revenue in the starting region.
-2. Water blocks travel and a bridge restores connectivity.
-3. Placement rejects overlapping or inaccessible buildings.
-4. Habitat settings update available encounter locations.
-5. Roster integrity and canonical evolutions, including Roxy → Titanblood Roxy and Pebblit → Bastionhorn.
-6. Battle turns advance over time and terminate with valid health values.
-7. Mid-battle serialization and restoration continue deterministically.
-8. Malformed imports are rejected.
-9. A corrupted current local save falls back to the previous backup.
-10. An Elite newcomer replaces #4 and swaps upward through #3, #2, and champion.
-11. A loss after gaining #4 preserves that seat and ends the challenge.
-12. One active challenger enters while the next remains queued.
-13. A controlled, accelerated eight-gym fixture earns badges 1–8 and enters the live League queue.
-14. All local JavaScript imports and offline-cache assets exist at the repository root.
-15. A mocked Firestore transaction rejects stale writes and accepts explicit replacement.
+Coverage includes:
 
-An additional regression check verifies that relocating a facility updates a walking trainer’s destination.
+- Truly empty starting world and first-lab placement before any other building.
+- No arrivals before opening admissions, six starting places plus six per gym (54 with eight gyms), no population increase from land, and pausing admissions.
+- A first eight-badge trainer claiming vacant Elite Four ranks without generating any residents.
+- XP requirements growing faster than equal-level rewards, and explicit trainer gym-readiness explanations.
+- Old-save migration preserving buildings, trainers and levels while remapping XP proportionally.
+- Autonomous catching, shopping, healing, gym wins and revenue in a deliberately constructed test town.
+- Water barriers, bridges, placement constraints, and moved-building route destinations.
+- Habitat controls, Feral evolution, timed combat, live-battle save continuation, corrupt-save fallback and malformed imports.
+- Elite Four #4 replacement, upward rank swaps, retaining an earned seat after losing, and one active challenger at a time.
+- An accelerated eight-gym fixture entering the League queue.
+- Root-level imports / offline assets, and mocked cloud transaction conflict handling.
 
 Additional checks:
 
-- All JavaScript files passed Node syntax checks.
-- The app booted and its panels, gym editing, habitat settings, build toggles, and speed controls ran in a lightweight DOM event harness without errors. This is not a real browser test.
-- World and battle canvases were rendered using a native Canvas implementation and visually inspected.
-- Icons were rendered at 192 and 512 pixels.
-- A larger region save with active trainers and battles was serialized and restored successfully at roughly 228 KB.
+- Every JavaScript file passes syntax checks.
+- A DOM event harness exercises empty-world onboarding and first-lab pointer placement, as well as all inspector panels, gym editing, habitats, build controls and game speed.
+- That harness verifies the battle canvas remains the same object across live turn updates.
+- All 36 new Feral drawings were rendered together with a native Canvas implementation and visually reviewed for distinct shapes.
 
 ## Verification limits
 
-A supported browser-control environment was not available for this delivery. Actual mobile browser layout, pinch gestures, browser installation, offline reload, and Google popups have not been exercised on a phone or iPad.
+The changes address observed code-level causes of choppy animation, but no supported phone/iPad browser-control environment was available. Device frame rate, touch feel, real browser layout, installation, and Google sign-in still require testing on the published site. The event harness and native Canvas rendering are not substitutes for real device tests.
 
-The Firebase project’s providers, authorized domains, database, and security rules were not accessed or changed. Live Google / email authentication and Firestore writes were not attempted. Follow START_HERE.md, then test sign-in and a save/load round trip from the published address.
+Firebase project settings were not accessed or changed, and no live cloud writes were performed. Follow START_HERE.md for setup.
 
-The eight-gym progression fixture deliberately uses a strong test trainer and easy gyms to verify the full state flow quickly; it is not a long-duration balance test of the default level curve.
+The accelerated eight-gym fixture tests the complete progression state flow, not the time required to finish the default game.
 
-## Deliberate game rules
+## Deliberate rules
 
-- Turn-based battles resolve automatically while the world runs. Viewing a battle does not grant manual combat control.
-- Teams heal between Elite Four matches. An earned seat is retained after a subsequent loss.
-- Founding Elite Four members start around levels 48–60. Normal trainers can level to 75.
-- Every gym has its own persistent leader definition; gym teams are fresh at each match. Edits affect future matches.
-- Trainer active teams hold up to six Ferals; combined team and reserve storage is capped at twelve.
-- The region supports up to 44 adventuring trainers plus four Elite Four residents. Arrival capacity grows with gyms and land.
-- Forest terrain is walkable; water requires a bridge. Habitats are encounter zones rather than persistent free-roaming individual wild populations.
-- A trainer unable to reach an intended destination displays a “!” and retries later.
-- Accounts have one private region each. There is no shared multiplayer or offline progression.
+- Gameplay is a private autonomous tycoon simulation. Battles play out automatically.
+- A fresh town has no buildings or trainers; natural terrain and habitats remain available for the player to develop.
+- Wild creatures are generated encounters inside player-painted, open catching areas. Areas have markers, custom rosters and badge gates; unmarked terrain is not an encounter area.
+- New Elite Four halls begin with vacancies. Existing saved worlds retain their established residents.
+- Six active Ferals and six reserves per trainer; up to 54 residents with eight gyms.
+- Level cap 75. Higher levels require more battles, especially when fighting weak opponents.
+- No progress occurs while the game is hidden or closed.
+
+Additional update checks cover area persistence, custom rosters and badge gates, one capture attempt per encounter, avoiding catches of reserve-owned species, and active-team rebalancing. The event harness also creates, names, paints and opens an area. Native Canvas rendering verified the map marker/boundary and incremental terrain repaint.
+
+A controlled 20-game-minute starting-town run with one gym, a 64-tile beginner area and default pricing ended with seven trainers, eight catches, two awarded badges, and $3,134 remaining after deducting the initial town, gym, area and path costs. This is one seeded scenario, not a guarantee for every layout or random outcome.
