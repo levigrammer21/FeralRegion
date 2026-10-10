@@ -1,4 +1,4 @@
-export const VERSION='1.2.1';
+export const VERSION='1.3.1';
 export const TYPES={Nature:{color:'#82bc59',strong:['Water','Stone'],weak:['Fire','Ice']},Fire:{color:'#ef9160',strong:['Nature','Ice'],weak:['Water','Stone']},Water:{color:'#68bed5',strong:['Fire','Stone'],weak:['Nature','Storm']},Stone:{color:'#baa786',strong:['Fire','Storm'],weak:['Water','Nature']},Storm:{color:'#f4d870',strong:['Water','Air'],weak:['Stone']},Ice:{color:'#b4e4ef',strong:['Nature','Air'],weak:['Fire']},Shadow:{color:'#ad93d0',strong:['Arcane'],weak:['Radiant']},Radiant:{color:'#ffdd9a',strong:['Shadow'],weak:['Arcane']},Arcane:{color:'#d992cc',strong:['Radiant'],weak:['Shadow']},Air:{color:'#b9d5ad',strong:['Nature'],weak:['Storm','Ice']}};
 // name, type, silhouette, color, accent, habitat, rarity, evolution, evolution level, temperament
 const rows=[
@@ -66,3 +66,5 @@ export const TRAITS=['Collector','Bold','Patient','Strategist','Wanderer'];
 export function defaultMoves(name,level){const s=SPECIES[name];return ['Tackle',...Object.keys(MOVES).filter(k=>MOVES[k].type===s.type).slice(0,level>=30?3:level>=14?2:1)].slice(-4);}
 export function effectiveness(type,target){return TYPES[type]?.strong.includes(target)?1.5:TYPES[type]?.weak.includes(target)?.valueOf()?0.7:1;}
 export const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+
+Object.assign(BUILDINGS,{fence:{name:'Wood fence',cost:18,color:'#9e805b',width:1,height:1,fee:0,upkeep:0},lamp:{name:'Lantern post',cost:65,color:'#efce7c',width:1,height:1,fee:0,upkeep:0},hedge:{name:'Hedge',cost:20,color:'#4e7853',width:1,height:1,fee:0,upkeep:0},statue:{name:'Champion statue',cost:350,color:'#afb5ae',width:2,height:2,fee:0,upkeep:1},picnic:{name:'Picnic table',cost:85,color:'#b99062',width:2,height:1,fee:0,upkeep:0}});

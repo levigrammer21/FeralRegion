@@ -1,3 +1,22 @@
+# 1.3.1 — Device saving repair
+
+- Region saves, backups and archives now use IndexedDB instead of localStorage when available.
+- Current save and rolling backup commit in one transaction; failed writes retain both previous records.
+- Existing local saves migrate without deleting them. Loading waits for storage before opening a region; read failures cannot silently create an empty replacement.
+- Ordered writes capture the region at the time Save is called. Device autosave runs every 10 seconds, after edits and on backgrounding.
+- Persistent save status and manual Save on this device button. Success appears only after commit. Sign-out stops if device saving fails; cloud load/import archive the region before replacement.
+- Export JSON still works independently of device storage. Export an unsaved running region BEFORE refreshing to install this update, then import it afterward.
+
+# 1.3.0 — A living region
+
+- Routes: stronger path preference, faster path travel, optional selected-trainer route overlay, area roster signs, and linkable route signs.
+- Trainers: Collector, Bold, Patient, Strategist and Wanderer habits affect destinations, supplies and gym preparation. Rename trainers and pin up to six favorites; three appear on the map watchlist.
+- Activity: current intentions, filtered event feed, clickable trainers and live challenges, catch/badge celebrations.
+- Economy: real shop stock with manual/automatic orders, $300 restocking reserve, service upgrades, visitor appeal, paying visitors and recent income/expense/profit per game-minute.
+- Gyms: visible waiting challengers, one battle per gym, gym boards, staff, live ranked-challenge banner and retained champion reign/team/defense records.
+- World: professor, healer, shopkeeper, gym leaders, café staff and League host; visiting spectators; functional bench/picnic rests; fences, hedges, lantern posts, picnic tables and champion statues. Existing bridge and landscaping tools remain available.
+- Existing region layouts, accounts, trainers and the storage-quota fix are preserved. New fields migrate automatically; historical reigns before this update cannot be reconstructed.
+
 # 1.2.1
 
 - Fix login failure when localStorage is full: prefer IndexedDB, fall back to session storage or memory. Handle quota failures during sign-in without deleting any region saves.

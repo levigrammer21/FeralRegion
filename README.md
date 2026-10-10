@@ -2,7 +2,7 @@
 
 **Build a world. Watch a legend.**
 
-Version 1.2.1 · static GitHub Pages project · all files at repository root
+Version 1.3.1 · static GitHub Pages project · all files at repository root
 
 Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, controls, and gameplay.
 
@@ -58,3 +58,7 @@ The project takes control and simulation ideas from the supplied WildLinks refer
 - Player-created catching areas with painted boundaries, numbered map flags, custom names, individual rosters, level ranges, and badge gates. Up to 40 areas; unmarked terrain does not generate encounters.
 - One low-probability capture attempt per unfamiliar wild species per encounter. Automatic team rebalancing considers strength and elemental coverage.
 - Starting budget reduced to $5,500; large early grants and trainer payouts reduced.
+
+## Living region (1.3)
+
+`living.js` adds personality preferences, recent transaction accounting, stocked shops, visitor tourism, service upgrades and champion records. Build route networks, pin favorite trainers, filter activity, upgrade services and customize additional decorations. Save migration adds these systems without replacing the map or existing trainers. See START_HERE.md for controls and CHANGELOG.md for the full update.

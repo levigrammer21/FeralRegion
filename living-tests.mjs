@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {newState,addTrainer,tick,gymReadiness,expense,revenue} from './simulation.js';
+import {makeBuilding,navPath,idx,invalidate} from './world.js';
+import {ensureLiving,areaScore,stockOrder,moneyRates,recordChampion} from './living.js';
+import {serialize,validateState} from './save.js';
+import {heal} from './battle.js';
+function town(){let s=newState();s.seed=231;s.buildings=[makeBuilding('lab',4,4),makeBuilding('shop',10,4),makeBuilding('heal',16,4),makeBuilding('gym',4,15)];s.settings.admissions=false;s.areas=[{id:'route',name:'Green Loop',biome:'meadow',cells:[idx(20,20),idx(21,20)],min:2,max:4,requiredBadges:0,open:true,species:['Mossprig']}];ensureLiving(s);return s;}
+let s=town(),shop=s.buildings[1],before=s.cash;assert.equal(stockOrder(s,shop,expense),168);assert.equal(before-s.cash,168);assert.deepEqual(shop.stock,{orbs:18,tonics:6});assert.equal(stockOrder(s,shop,expense),0);shop.stock.orbs=0;s.cash=305;assert.equal(stockOrder(s,shop,expense),0);assert.equal(s.cash,305);
+s=town();let t=addTrainer(s,{species:'Cinderkit',level:7});heal(t.team);t.trait='Bold';assert.equal(gymReadiness(s,t).ready,true);t.trait='Patient';assert.equal(gymReadiness(s,t).ready,false);t.trait='Collector';let missing=areaScore(s,t,s.areas[0]),known=areaScore(s,t,{...s.areas[0],species:['Cinderkit']});assert.ok(missing<known);
+s=town();for(let x=7;x<=22;x++)s.tiles[idx(x,10)]='path';for(let y=10;y<=12;y++){s.tiles[idx(7,y)]='path';s.tiles[idx(22,y)]='path';}invalidate(s);let route=navPath(s,{x:7,y:12},{x:22,y:12});assert.ok(route.some(p=>p.y===10),'A useful path detour should beat a short grass shortcut');
+s=town();for(let i=0;i<4000;i++)tick(s,.1);assert.ok(s.visitorTotal>0);assert.ok(s.visitorRevenue>0);assert.equal(s.trainers.length,0,'Visitors must not occupy trainer slots');
+s=town();s.time=60;revenue(s,60,null,'Tickets');expense(s,15,'Supplies');assert.equal(moneyRates(s).profit,45);
+s=town();t=addTrainer(s,{species:'Cinderkit',level:75});recordChampion(s,t);s.time=120;let next=addTrainer(s,{name:'Next champion',species:'Cinderkit',level:75});recordChampion(s,next);assert.equal(s.champions[0].endedAt,120);assert.equal(s.champions[1].endedAt,null);t.pinned=true;shop=s.buildings[1];stockOrder(s,shop,expense);let copy=validateState(serialize(s));assert.equal(copy.trainers[0].pinned,true);assert.equal(copy.champions.length,2);assert.equal(copy.buildings[1].stock.orbs,18);
+s=town();let gym=s.buildings.find(b=>b.type==='gym');gym.team=[{species:'Mossprig',level:1,moves:['Tackle']}];for(let i=0;i<3;i++){let t=addTrainer(s,{species:'Sunmane',level:75});t.state='idle';t.wait=0;t.trait='Bold';}let queued=false;for(let i=0;i<1500;i++){tick(s,.1);assert.ok(s.battles.filter(b=>!b.done&&b.type==='gym'&&b.target===gym.id).length<=1);if(s.trainers.some(t=>t.state==='gymwait'))queued=true;}assert.ok(queued,'Busy gym exposes a waiting queue');
+console.log('Living-region checks passed: paid stock/reserve, personalities, routes, visitors, profit, champion records, save compatibility, and gym queues.');

@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+// Transaction emulator: request success precedes commit; abort rolls back all puts.
+let records=new Map(),abortNext=false,commits=0;
+const db={close(){},createObjectStore(){},transaction(name,mode){let working=new Map(records),pending=0,timer;const tx={error:null,objectStore(){return {get(key){return request(()=>working.get(key));},put(value,key){return request(()=>{working.set(key,value);return key;});}};}};function finish(){clearTimeout(timer);timer=setTimeout(()=>{if(pending)return;if(abortNext&&mode==='readwrite'){abortNext=false;tx.error=Object.assign(Error('quota'),{name:'QuotaExceededError'});tx.onabort?.();return;}if(mode==='readwrite'){records=working;commits++;}tx.oncomplete?.();},0);}function request(fn){pending++;clearTimeout(timer);const req={};queueMicrotask(()=>{req.result=fn();req.onsuccess?.();pending--;finish();});return req;}finish();return tx;}};
+globalThis.indexedDB={open(){let req={};queueMicrotask(()=>{req.result=db;req.onsuccess?.();});return req;}};
+const legacy=new Map();globalThis.localStorage={getItem:key=>legacy.get(key)||null,setItem(){throw Object.assign(Error('Web storage quota exceeded'),{name:'QuotaExceededError'});}};
+const {newState}=await import('./simulation.js');const {deviceLoad,deviceSave,serialize,archiveSave,archiveLoad}=await import('./save.js');
+let s=newState('Old region');legacy.set('feral-regions-v1-a',serialize(s));assert.equal((await deviceLoad('a')).name,'Old region');assert.ok(records.has('feral-regions-v1-a'));assert.ok(legacy.has('feral-regions-v1-a'),'Migration retains old saves');
+s.cash=1234;let write=deviceSave(s,'a');await write;assert.ok(commits>=2);assert.equal((await deviceLoad('a')).cash,1234);assert.equal(JSON.parse(records.get('feral-regions-v1-a-backup')).cash,5500);
+abortNext=true;s.cash=987;await assert.rejects(deviceSave(s,'a'),/quota/);assert.equal((await deviceLoad('a')).cash,1234,'Failed commit must retain current save');assert.equal(JSON.parse(records.get('feral-regions-v1-a-backup')).cash,5500,'Backup must roll back too');
+s.cash=111;const a=deviceSave(s,'a');s.cash=222;const b=deviceSave(s,'a');await Promise.all([a,b]);assert.equal((await deviceLoad('a')).cash,222);assert.equal(JSON.parse(records.get('feral-regions-v1-a-backup')).cash,111,'Queued writes capture call-time state');
+await archiveSave(s,'a');assert.equal(JSON.parse(await archiveLoad('a')).cash,222);assert.equal(await deviceLoad('other'),null,'Account isolation');records.set('feral-regions-v1-a','broken');assert.equal((await deviceLoad('a')).cash,111,'Corrupt current recovers previous save');
+console.log('Device storage checks passed: full localStorage, migration, commit, atomic rollback, ordered saves, archive, account isolation, recovery.');

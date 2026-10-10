@@ -1,4 +1,4 @@
-# Feral Regions — 1.2.1
+# Feral Regions — 1.3.1
 
 A complete, buildless browser tycoon for your phone and iPad. Build the region, set the gym teams, and watch independent trainers become champions.
 
@@ -51,7 +51,7 @@ To experience the new build-it-yourself opening, choose **Account → Start a ne
 
 ### How a trainer chooses a gym
 
-The trainer considers their lowest-numbered missing gym. Their strongest Feral must reach at least 93% of that gym’s highest level (rounded up to the next whole level), and their team must have more than 65% combined health. The gym must be free and reachable. Healing and supply needs are handled first.
+The trainer considers their lowest-numbered missing gym. Personality sets the target: Bold trainers need 90% of the leader’s highest level and over 65% team health; Collectors 98% / 70%; Strategists 100% / 78%; Wanderers 100% / 72%; Patient trainers 112% / 85%. Level targets round up. The gym must be reachable. Trainers heal to their preferred readiness before a challenge and queue outside a busy gym. Healing and supply needs are handled first.
 
 After a gym loss, the trainer has a 180-game-second training break. After a badge win, they wait 150 game-seconds before considering the next gym. A trainer profile now explains the next gym goal and what is preventing a challenge.
 
@@ -101,3 +101,20 @@ Account → Export JSON downloads a portable backup. Import JSON validates the f
 See `VALIDATION.md` for the checks completed and the remaining device/cloud verification limits.
 
 Existing regions keep their terrain. Use Account → Start a new empty region for an all-grass map. A previous guest save can be recovered from Account after signing in. Sign-in requires Firebase access; a failed connection stays on the login screen and preserves saves.
+
+## Living-region controls (1.3)
+
+- Tap a trainer to see their intent and personality, rename them, pin a favorite, or show their travel route. Paths make travel quicker and are strongly preferred; grass is still traversable.
+- Open the journal for All, Favorites, Battles and Milestones filters. Tap a live battle event to watch it. The golden League banner follows the one active challenger.
+- Tap a shop to see stock, order supplies or toggle auto-order. Orbs cost $6 wholesale, tonics $10. Orders retain $300 cash and check every two game-minutes. New shops begin empty and order when the simulation resumes.
+- Upgrade shops, healing lodges and cafés twice: $300, then $600. Service becomes faster; each upgrade adds $2 daily upkeep and visitor appeal.
+- Region shows recent cash flow and visitor tickets. Visitors tour reachable gyms, cafés or landmarks after an area opens, and pay only an affordable advertised ticket price. They do not count against trainer capacity.
+- Build → Decor adds fences, hedges, lamps, picnic tables and statues. Fences and hedges can sit side by side. All still obey entrance/connectivity rules. Link a route sign to an area from its settings.
+- League keeps champion history from this update onward. Existing champions begin a record on migration; earlier reign dates cannot be recovered.
+
+
+## Saving repair (1.3.1)
+
+If the old version currently says device saving failed, use Account → Export JSON before refreshing. Upload this update, sign in, then use Account → Import JSON to restore that downloaded progress. Existing successfully stored regions migrate automatically; no site data is cleared.
+
+Game saves now use IndexedDB, separate from the small localStorage allowance. Device saving runs every 10 seconds and after edits. Check the on-screen Device saved timestamp, or use Account → Save on this device now before leaving. Cloud saving is separate and still requires explicitly loading or saving the cloud region first. If your browser blocks all storage or your device runs out of disk space, export JSON or save to cloud; this update does not claim unlimited device storage.

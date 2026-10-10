@@ -1,4 +1,4 @@
-# Validation — Feral Regions 1.2.1
+# Validation — Feral Regions 1.3.1
 
 ## Automated checks
 
@@ -51,4 +51,10 @@ A controlled 20-game-minute starting-town run with one gym, a 64-tile beginner a
 
 All 26 simulation/save checks pass, including all-lawn new worlds. The DOM/Canvas event harness passes login gating, no simulation/save before login, signed-out gate reopening, neutral Build panning, fresh menu selection, building drag preview, cancellation, pinch cancellation, palette drag/drop with price confirmation, and disarming after placement. Existing panel and stable battle-canvas checks pass. Firebase is mocked in the event harness; live provider login and actual phone touch/render performance require checking on the published GitHub Pages site. No browser or device verification is claimed.
 
-1.2.1: mocked authentication checks pass for IndexedDB → session → memory fallback, signup quota recovery without duplicate account creation, and credential errors. Live Firebase login still requires device verification.
+1.3.1: mocked authentication checks pass for IndexedDB → session → memory fallback, signup quota recovery without duplicate account creation, and credential errors. Live Firebase login still requires device verification.
+
+## 1.3 living-region validation
+
+26 simulation/save checks pass, including the complete eight-gym and Elite Four sequence. The early autonomy test now covers 30 game-minutes to accommodate cautious personalities. Additional integration checks cover paid stock/reserve, personality readiness and collecting preferences, path detours, paying visitors without trainer capacity consumption, cash flow, champion turnover and save persistence, and exclusive gym battles with waiting queues. Auth fallback checks pass. DOM/Canvas event harness covers favorites, renaming, route toggle, activity filters and visitor pricing as well as previous controls. Native Canvas rendering inspected for staff, decorations, visitors, gym boards and area labels. Actual browser layout, device touch performance and live Firebase remain unverified in this environment.
+
+1.3.1: storage transaction emulator passes with all localStorage writes forced to fail. Checks cover legacy migration without deletion, completed writes, atomic rollback of current/backup on failure, ordered overlapping saves, archives, account separation and corrupt-current backup recovery. Existing UI event harness passes async account loading, onboarding, saves and sign-out. Actual Android IndexedDB and live Firebase remain device verification limits.
