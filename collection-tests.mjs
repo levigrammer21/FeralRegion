@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {SPECIES,encounterWeight} from './data.js';
+import {newState,addTrainer,finishBattle,rebalanceTeam} from './simulation.js';
+import {feral,startBattle,battleTick,stats,random} from './battle.js';
+import {ownsVariant,wantsCatch,swapActive,trainerGoal} from './collection.js';
+import {validateState,serialize} from './save.js';
+import {makeBuilding,candidates} from './world.js';
+import {packCloud,unpackCloud} from './cloud.js';
+assert.equal(Object.keys(SPECIES).length,108);assert.ok(SPECIES.Gravahound);assert.ok(!SPECIES.Roxy);for(let f of Object.values(SPECIES))assert.ok(!f.evo||SPECIES[f.evo]);
+let s=newState();s.buildings=[makeBuilding('lab',4,4)];let t=addTrainer(s,{species:'Cinderkit',level:20});t.mindset='collect';t.state='idle';t.storage=Object.keys(SPECIES).filter(n=>n!=='Cinderkit').map(n=>feral(s,n,5));let shiny=feral(s,'Cinderkit',5);shiny.shiny=true;assert.equal(ownsVariant(t,shiny),false);assert.equal(wantsCatch(t,shiny),true);t.storage.push(shiny);assert.equal(wantsCatch(t,shiny),false);assert.equal(wantsCatch(t,{species:'Cinderkit',shiny:false}),false);let saved=validateState(serialize(s));assert.equal(saved.trainers[0].storage.length,108);
+let incoming=t.storage[0];swapActive(t,incoming.id);assert.equal(t.team.length,2);assert.equal(t.manualTeam,true);let ids=t.team.map(f=>f.id);rebalanceTeam(t);assert.deepEqual(t.team.map(f=>f.id),ids);t.battleId='busy';assert.throws(()=>swapActive(t,t.storage[0].id),/cannot change/);t.battleId=null;
+let old=JSON.parse(serialize(s));old.trainers[0].storage.find(f=>f.species==='Gravahound').species='Roxy';assert.ok(validateState(old).trainers[0].storage.some(f=>f.species==='Gravahound'));
+let area={biome:'meadow',species:['Cinderkit','Mossprig','Wishling'],encounterWeights:{Cinderkit:100,Mossprig:20,Wishling:4}};let list=candidates(s,'meadow',area);assert.equal(list.reduce((n,f)=>n+encounterWeight(area,f),0),124);area.encounterWeights.Wishling=0;assert.equal(candidates(s,'meadow',area).length,2);
+function attempt(shiny){let s=newState();s.seed=99;let t=addTrainer(s,{species:'Bastionhorn',level:60});t.mindset='collect';let f=feral(s,'Mossprig',5);f.shiny=shiny;f.hp=stats(f).hp*.25;let b=startBattle(s,{a:t,b:{name:'wild',team:[f]},type:'wild'});for(let i=0;i<1000&&!b.done;i++)battleTick(s,b,.1);return {captured:!!b.captured,tries:b.catchTries,seed:s.seed};}assert.deepEqual(attempt(false),attempt(true),'Shiny flag cannot alter catch odds or consume extra RNG');
+s=newState();let count=0;for(let i=0;i<100000;i++)if(random(s)<.01)count++;assert.ok(count>850&&count<1150);
+s=newState();t=addTrainer(s,{species:'Cinderkit',level:10});let b=startBattle(s,{a:t,b:{name:'wild',team:[feral(s,'Mossprig',3)]},type:'wild'});b.winner='a';let cash=s.cash;finishBattle(s,b);finishBattle(s,b);assert.equal(s.cash-cash,1,'Wild treasury bounty pays exactly once');t.mindset='money';assert.equal(trainerGoal(t),'money');t.mindset='auto';t.money=0;assert.equal(trainerGoal(t),'money');
+let big=JSON.stringify({items:Array(12000).fill({species:'Titanblood Gravahound',shiny:true,level:75,moves:['Tackle','Titanfall'],hp:444})});let packed=await packCloud(big);assert.ok(packed.startsWith('gzip:'));assert.equal(await unpackCloud(packed),big);
+console.log('Collection checks pass: 108 species, migration, large storage, independent variants, swaps/manual lock, weights, identical shiny catch odds, 1% roll, one-time bounty, mindsets and compressed cloud round-trip.');

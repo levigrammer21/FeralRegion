@@ -1,4 +1,4 @@
-# Feral Regions — 1.3.1
+# Feral Regions — 1.4.0
 
 A complete, buildless browser tycoon for your phone and iPad. Build the region, set the gym teams, and watch independent trainers become champions.
 
@@ -63,7 +63,7 @@ If the challenger loses before winning a seat, they return to training and can r
 
 ### Growing your region
 
-After you open admissions, trainers arrive roughly every 150–210 game-seconds and choose a starter. The total population cap starts at six and increases by six for each gym: 6, 12, 18, 24, 30, 36, 42, 48, and 54 with all eight gyms. Elite Four residents count toward this total. Land does not increase the cap. Every newcomer starts at your lab in the starting town. Pause new arrivals from the region menu whenever you want. They catch weakened wild Ferals with binding orbs, carry up to six teammates and six reserves, earn field-research money, buy supplies, train, heal, and pursue badges. Their teams, inventories, money, records, and histories persist.
+After you open admissions, trainers arrive roughly every 150–210 game-seconds and choose a starter. The total population cap starts at six and increases by six for each gym: 6, 12, 18, 24, 30, 36, 42, 48, and 54 with all eight gyms. Elite Four residents count toward this total. Land does not increase the cap. Every newcomer starts at your lab in the starting town. Pause new arrivals from the region menu whenever you want. They catch weakened wild Ferals with binding orbs, carry up to six active teammates and keep the remaining collection in reserve (one normal and one shiny of each species), earn field-research money, buy supplies, train, heal, and pursue badges. Their teams, inventories, money, records, and histories persist.
 
 Trainers try one binding orb on an unfamiliar species once it is below 40% health. They hold back a knockout blow when preparing a catch. Catch odds are roughly 2.5%–22%, influenced by species rarity, health, level difference, and status. A failed attempt ends catching for that encounter; they finish the battle instead of repeatedly throwing orbs. Species already in the active team or reserve are not targeted.
 
@@ -113,8 +113,18 @@ Existing regions keep their terrain. Use Account → Start a new empty region fo
 - League keeps champion history from this update onward. Existing champions begin a record on migration; earlier reign dates cannot be recovered.
 
 
-## Saving repair (1.3.1)
+## Saving repair (1.4.0)
 
 If the old version currently says device saving failed, use Account → Export JSON before refreshing. Upload this update, sign in, then use Account → Import JSON to restore that downloaded progress. Existing successfully stored regions migrate automatically; no site data is cleared.
 
 Game saves now use IndexedDB, separate from the small localStorage allowance. Device saving runs every 10 seconds and after edits. Check the on-screen Device saved timestamp, or use Account → Save on this device now before leaving. Cloud saving is separate and still requires explicitly loading or saving the cloud region first. If your browser blocks all storage or your device runs out of disk space, export JSON or save to cloud; this update does not claim unlimited device storage.
+
+## Collecting and encounter rarity (1.4)
+
+Tap a trainer → Trainer mindset to select a goal. Auto uses the trainer’s personality and switches to earning money below $35. Catch them all focuses on missing normal species in accessible open areas; it moves toward gyms when those available collections are complete. Earn money deliberately avoids gym/League progression until you change the goal.
+
+Trainer profiles show normal and shiny collection checklists. Choose an active Feral in “When bringing in a reserve, replace,” then tap Move to active team under a reserve. This locks the team; toggle Team selection back to auto to let the trainer rebalance later. Only six fight; reserves are never automatically released for space. Evolution pauses if it would duplicate an owned variant.
+
+Open a catching area → Choose Ferals & encounter rarity. Select the roster (or retain biome auto-population), choose presets or weights, then Save. Common 100, Rare 20, Epic 4 produce relative odds: one of each is about 80.65%, 16.13%, 3.23%. Zero disables a species. The Saved encounter odds section shows the actual probabilities for that area. Every encounter separately rolls 1% shiny. This is a probability, not a guarantee every hundred encounters.
+
+Shinies keep the same catch odds and stats. The treasury earns $1 for each wild-battle victory, separate from trainer money and shop income.

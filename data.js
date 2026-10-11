@@ -1,4 +1,5 @@
-export const VERSION='1.3.1';
+import {EXTRA_ROWS} from './roster.js';
+export const VERSION='1.4.0';
 export const TYPES={Nature:{color:'#82bc59',strong:['Water','Stone'],weak:['Fire','Ice']},Fire:{color:'#ef9160',strong:['Nature','Ice'],weak:['Water','Stone']},Water:{color:'#68bed5',strong:['Fire','Stone'],weak:['Nature','Storm']},Stone:{color:'#baa786',strong:['Fire','Storm'],weak:['Water','Nature']},Storm:{color:'#f4d870',strong:['Water','Air'],weak:['Stone']},Ice:{color:'#b4e4ef',strong:['Nature','Air'],weak:['Fire']},Shadow:{color:'#ad93d0',strong:['Arcane'],weak:['Radiant']},Radiant:{color:'#ffdd9a',strong:['Shadow'],weak:['Arcane']},Arcane:{color:'#d992cc',strong:['Radiant'],weak:['Shadow']},Air:{color:'#b9d5ad',strong:['Nature'],weak:['Storm','Ice']}};
 // name, type, silhouette, color, accent, habitat, rarity, evolution, evolution level, temperament
 const rows=[
@@ -13,8 +14,8 @@ const rows=[
  ['Tidewarden','Water','otter','#326b8c','#96e4d4','wetland',5,null,0,'Its crest glows when rain approaches.'],
  ['Pebblit','Stone','turtle','#a59275','#d8ca9d','rocky',1,'Bastionhorn',24,'Carries its favorite pebble everywhere.'],
  ['Bastionhorn','Stone','rhino','#7f8f82','#e3c994','rocky',4,null,0,'A plated, horned defender. Built to protect, not pursue.'],
- ['Roxy','Shadow','hound','#403e4b','#9be9ff','forest',5,'Titanblood Roxy',40,'A loyal Gravahound with a dormant Titanblood lineage.'],
- ['Titanblood Roxy','Shadow','bear','#343a49','#a2eeff','forest',7,null,0,'A massive guardian split by brilliant blue-white creases.'],
+ ['Gravahound','Shadow','hound','#403e4b','#9be9ff','forest',5,'Titanblood Gravahound',40,'A loyal Gravahound with a dormant Titanblood lineage.'],
+ ['Titanblood Gravahound','Shadow','bear','#343a49','#a2eeff','forest',7,null,0,'A massive guardian split by brilliant blue-white creases.'],
  ['Abysscoil','Water','serpent','#739bae','#d8faff','wetland',6,null,0,'A silver water serpent with a gentle, watchful gaze.'],
  ['Sparkip','Storm','mouse','#eac65c','#795b40','meadow',1,'Voltjack',22,'Stores static in its oversized ears.'],
  ['Voltjack','Storm','rabbit','#d8ac40','#fff4ad','rocky',3,null,0,'Leaves flickering footprints after a sprint.'],
@@ -39,8 +40,9 @@ const rows=[
  ['Lanternelk','Radiant','stag','#b89e7c','#fff2b1','forest',5,null,0,'Golden antlers guide a herd through the mist.'],
  ['Emberasp','Fire','serpent','#be7457','#ffe196','volcanic',3,null,0,'Coils around sun-warmed stones.']
 ];
-export const SPECIES=Object.fromEntries(rows.map((r,i)=>[r[0],{name:r[0],type:r[1],shape:r[2],color:r[3],accent:r[4],habitat:r[5],rarity:r[6],evo:r[7],evoLevel:r[8],lore:r[9],index:i,hp:36+(i%4)*5,attack:12+(i%5)*2,defense:10+(i%3)*3,speed:10+(i*7%15)}]));
-Object.assign(SPECIES.Bastionhorn,{hp:60,defense:25,attack:14,speed:7});Object.assign(SPECIES['Titanblood Roxy'],{hp:68,attack:27,defense:21,speed:15});Object.assign(SPECIES.Abysscoil,{hp:56,attack:22,defense:17,speed:19});
+rows.push(...EXTRA_ROWS);
+export const SPECIES=Object.fromEntries(rows.map((r,i)=>[r[0],{name:r[0],type:r[1],shape:r[2],color:r[3],accent:r[4],habitat:r[5],rarity:r[6],evo:r[7],evoLevel:r[8],lore:r[9],index:i,family:r[10]??null,stage:r[11]??0,hp:36+(i%4)*5,attack:12+(i%5)*2,defense:10+(i%3)*3,speed:10+(i*7%15)}]));
+Object.assign(SPECIES.Bastionhorn,{hp:60,defense:25,attack:14,speed:7});Object.assign(SPECIES['Titanblood Gravahound'],{hp:68,attack:27,defense:21,speed:15});Object.assign(SPECIES.Abysscoil,{hp:56,attack:22,defense:17,speed:19});
 export const STARTERS=['Cinderkit','Mossprig','Rillfin'];
 export const MOVES={
  Tackle:{type:'Normal',power:30},Guard:{type:'Normal',power:0,effect:'guard'},Recover:{type:'Normal',power:0,effect:'heal'},
@@ -68,3 +70,4 @@ export function effectiveness(type,target){return TYPES[type]?.strong.includes(t
 export const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 
 Object.assign(BUILDINGS,{fence:{name:'Wood fence',cost:18,color:'#9e805b',width:1,height:1,fee:0,upkeep:0},lamp:{name:'Lantern post',cost:65,color:'#efce7c',width:1,height:1,fee:0,upkeep:0},hedge:{name:'Hedge',cost:20,color:'#4e7853',width:1,height:1,fee:0,upkeep:0},statue:{name:'Champion statue',cost:350,color:'#afb5ae',width:2,height:2,fee:0,upkeep:1},picnic:{name:'Picnic table',cost:85,color:'#b99062',width:2,height:1,fee:0,upkeep:0}});
+export const encounterWeight=(area,f)=>area.encounterWeights?.[f.name]??Math.max(1,Math.round(100/(f.rarity*f.rarity)));

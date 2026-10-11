@@ -1,3 +1,14 @@
+# 1.4.0 — Collectors & rare encounters
+
+- 108 species: original 36 preserved plus 24 three-stage families (72 new Ferals). Roxy species renamed Gravahound; Titanblood Roxy renamed Titanblood Gravahound. Old saves migrate automatically.
+- Each wild spawn independently rolls a 1% shiny chance. Shinies have alternate palettes/sparkles, unchanged stats/catch odds, and preserve their shiny flag through evolution and saving.
+- Six active Ferals with permanent reserves supporting one normal and one shiny of all 108 species. No automatic release at 12. Separate variant ownership prevents duplicate catches; evolution holds when the evolved variant is already owned.
+- Trainer collection checklists, reserve-to-active swaps and a manual-team lock. Manual swaps do not heal Ferals and are unavailable during battles/League duty.
+- Select Auto, Catch them all, Become the best, or Earn money/train. Collectors prioritize areas missing normal species before gyms; competitors prioritize gym training; earners seek safer wild fights and more rival battles. Auto adapts to personality and switches to money below $35. All goals opportunistically attempt unowned shinies.
+- Wild battle victories add exactly $1 to the region treasury, once; captures do not award the defeat bounty.
+- Area editor: per-species encounter weights, Common (100), Rare (20), Epic (4) presets, custom 0–1000 weights, zero-to-disable, and normalized appearance percentages. Capture rarity remains species-based; shiny chance remains 1%.
+- Large cloud saves gzip automatically when supported. Larger JSON imports support expanded collections. Previous device-save and authentication fixes retained.
+
 # 1.3.1 — Device saving repair
 
 - Region saves, backups and archives now use IndexedDB instead of localStorage when available.
