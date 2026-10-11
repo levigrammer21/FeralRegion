@@ -1,3 +1,11 @@
+# Version 1.5.3 — Native browser installation promotion
+
+- Stopped cancelling Chrome's beforeinstallprompt event so its native install promotion can appear.
+- Added independent, early PWA startup that does not depend on the game/Firebase module graph; setup remains idempotent when the game attaches notifications.
+- Versioned the manifest link and fetch the manifest from the network when available, with an offline fallback, so Chrome checks current metadata.
+- Audited the live /FeralRegion/ deployment: manifest, 192/512 PNG icons, game modules and service-worker assets are reachable.
+- Browser decides when/where its install icon appears. Actual Android installation cannot be verified from the desktop cloud browser.
+
 # Version 1.5.2 — Installation detection fix
 
 - Removed the false “already installed” block based on the current window's display mode. A real browser install prompt remains usable in any display mode.

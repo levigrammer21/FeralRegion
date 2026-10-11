@@ -1,8 +1,8 @@
-# Applying the v1.5.2 changed-files patch
+# Applying the v1.5.3 changed-files patch
 
-Extract the ZIP into its single Feral-Regions-Update folder. Upload the FILES INSIDE that folder directly to your existing GitHub repository root, replacing matching names and adding the new files. Keep every other existing file. Do not upload the enclosing folder as a subfolder. This patch requires the v1.5.1 game already installed.
+Extract the ZIP into its single Feral-Regions-Update folder. Upload the FILES INSIDE that folder directly to your existing GitHub repository root, replacing matching names and adding the new files. Keep every other existing file. Do not upload the enclosing folder as a subfolder. This patch requires the v1.5.2 game already installed.
 
-After GitHub Pages finishes publishing, reopen the game and check Account for v1.5.2. If the old version is still open, close all game tabs/the installed app and reopen it. You do not need to reset your region or change Firebase rules.
+After GitHub Pages finishes publishing, reopen the game and check Account for v1.5.3. If the old version is still open, close all game tabs/the installed app and reopen it. You do not need to reset your region or change Firebase rules.
 
 ## Visual Feral selection
 
