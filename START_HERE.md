@@ -1,4 +1,26 @@
-# Feral Regions — 1.4.0
+# Applying the v1.5.0 changed-files patch
+
+Extract the ZIP into its single Feral-Regions-Update folder. Upload the FILES INSIDE that folder directly to your existing GitHub repository root, replacing matching names and adding the new files. Keep every other existing file. Do not upload the enclosing folder as a subfolder. This patch requires the full v1.4.0 game already installed.
+
+After GitHub Pages finishes publishing, reopen the game and check Account for v1.5.0. If the old version is still open, close all game tabs/the installed app and reopen it. You do not need to reset your region or change Firebase rules.
+
+## Tournaments
+
+Open League → Tournaments (also available from your region panel). Build an arena, then create your tournament. Choose entry fee, prize percentage, optional treasury bonus, winner/top-two/top-four payout, 4/8/16 entrants, 1–6 Ferals, badge range, maximum Feral level, element and base-species restriction. View the exact full-bracket prize calculation before opening registration.
+
+Eligible trainers automatically pay from their own wallets and travel to the venue. Mindsets influence interest; gold-focused trainers consider expected returns. Registration extends every minute if the bracket is short. Full brackets start after all entrants arrive. One regional tournament runs at a time; League residents/current challengers remain on League duty. Entrants need the exact number of qualifying active Ferals and cannot swap until the tournament ends. Healed battle copies compete; no XP, evolution or tonic spending occurs during tournament matches.
+
+Entry fees and the treasury bonus are held for prizes. The host share reaches the treasury on completion. Cancelling refunds entry fees and your bonus; tickets already sold remain earned income. Top four pays 60%/25%/7.5%/7.5% (semifinal losers tie for third); rounding remainder goes to first. Top two pays 70%/30%.
+
+Nearby stands (within 14 tiles) seat eight fans each. Spectators arrive during matches and pay the configured ticket fee once per event. Repeating events reopen the selected number of game days after completion; insufficient bonus funds delay reopening. Stop a scheduled repeat from trophy history. Time stays paused while the game is hidden or closed.
+
+## Install on your device
+
+Open the published HTTPS GitHub Pages game, then Account → Install on your device. Android may show a native install prompt; otherwise use Chrome/Samsung Internet's menu → Install app or Add to home screen. On iPad open Safari → Share → Add to Home Screen → Add. Installed mode opens without the normal browser address bar. Login and cloud sync require internet; installation is not an app-store publication. Cached assets are installed as a complete version. Account shows a save-and-reload button when a new version takes control.
+
+---
+
+# Feral Regions — 1.5.0
 
 A complete, buildless browser tycoon for your phone and iPad. Build the region, set the gym teams, and watch independent trainers become champions.
 
@@ -113,7 +135,7 @@ Existing regions keep their terrain. Use Account → Start a new empty region fo
 - League keeps champion history from this update onward. Existing champions begin a record on migration; earlier reign dates cannot be recovered.
 
 
-## Saving repair (1.4.0)
+## Saving repair (1.5.0)
 
 If the old version currently says device saving failed, use Account → Export JSON before refreshing. Upload this update, sign in, then use Account → Import JSON to restore that downloaded progress. Existing successfully stored regions migrate automatically; no site data is cleared.
 

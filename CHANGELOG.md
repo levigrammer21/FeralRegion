@@ -1,3 +1,11 @@
+# Version 1.5.0 — Tournament circuit
+
+- Build a tournament arena and spectator stands; configure 4/8/16 brackets, 1–6 Ferals, badge/level/element/base-species eligibility, entry fees, prize share, treasury bonuses and ticket prices.
+- Automatic mindset-aware signup, visible travel, seeded single-elimination brackets, live animated matches, trophy history and recurring events.
+- Fee escrow, exact automatic payouts, full cancellation refunds, locked entrant teams and save/resume of live matches. No tournament XP or tonic consumption; healed battle copies keep entrant collections unchanged.
+- Android install prompt, permanent Android/iPad instructions, standalone detection and complete versioned service-worker shell updates.
+- This patch applies over v1.4.0. Existing regions migrate without resetting.
+
 # 1.4.0 — Collectors & rare encounters
 
 - 108 species: original 36 preserved plus 24 three-stage families (72 new Ferals). Roxy species renamed Gravahound; Titanblood Roxy renamed Titanblood Gravahound. Old saves migrate automatically.

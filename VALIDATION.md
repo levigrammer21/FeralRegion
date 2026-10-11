@@ -60,3 +60,10 @@ All 26 simulation/save checks pass, including all-lawn new worlds. The DOM/Canva
 1.4.0: storage transaction emulator passes with all localStorage writes forced to fail. Checks cover legacy migration without deletion, completed writes, atomic rollback of current/backup on failure, ordered overlapping saves, archives, account separation and corrupt-current backup recovery. Existing UI event harness passes async account loading, onboarding, saves and sign-out. Actual Android IndexedDB and live Firebase remain device verification limits.
 
 1.4: additional checks cover 108 valid species/evolution links, Gravahound migration, reserves above the old cap, independent normal/shiny ownership, manual swaps and lock, rarity weights/disabled species, identical seeded normal/shiny catch outcomes, a 1% RNG sampling check, exactly-once $1 treasury reward, mindset selection, and large compressed cloud payload round-trip. Native Canvas rendered all 216 normal/shiny sprites; roster gallery inspected. Existing simulation and UI harness checks retained. Live Android browser, Firebase and device performance still require device verification.
+
+## v1.5.0 validation
+- Completed 4-, 8- and 16-trainer brackets including a save/reload during a live match; validated all payouts, exact money conservation except ticket sales, trophy records, entrant release and unchanged real Feral teams/tonics.
+- Confirmed cancellation refunds before/during competition, idempotent results, registration extension, repeating schedules, team-swap locks, eligibility limits, malformed escrow rejection and integration with the main simulation.
+- Executed tournament creation/refund and install instructions in the DOM event harness; rendered new arena/stands with native Canvas.
+- Checked deferred install prompt, standalone detection, manifest icon references and service-worker offline shell behavior. Full existing regression suite passed.
+- Actual Android/iPad installation, mobile visual layout and live Firebase/GitHub deployment require testing on the published game; this environment did not perform that device test.
