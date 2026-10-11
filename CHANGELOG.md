@@ -1,3 +1,10 @@
+# Version 1.5.1 — Visual Feral pickers
+
+- Searchable, element-filtered Feral-dex portrait grids for catching areas and all gym team slots.
+- Tap-to-toggle route rosters with selected checkmarks; rarity controls only for selected species and live normalized encounter odds.
+- Gym portrait selection preserves leader/badge edits and other slots; changed species clear that slot's custom move overrides.
+- Existing saves and auto-populated routes remain compatible. Changed-files patch applies over v1.5.0.
+
 # Version 1.5.0 — Tournament circuit
 
 - Build a tournament arena and spectator stands; configure 4/8/16 brackets, 1–6 Ferals, badge/level/element/base-species eligibility, entry fees, prize share, treasury bonuses and ticket prices.

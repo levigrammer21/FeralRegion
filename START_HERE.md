@@ -1,8 +1,14 @@
-# Applying the v1.5.0 changed-files patch
+# Applying the v1.5.1 changed-files patch
 
-Extract the ZIP into its single Feral-Regions-Update folder. Upload the FILES INSIDE that folder directly to your existing GitHub repository root, replacing matching names and adding the new files. Keep every other existing file. Do not upload the enclosing folder as a subfolder. This patch requires the full v1.4.0 game already installed.
+Extract the ZIP into its single Feral-Regions-Update folder. Upload the FILES INSIDE that folder directly to your existing GitHub repository root, replacing matching names and adding the new files. Keep every other existing file. Do not upload the enclosing folder as a subfolder. This patch requires the v1.5.0 game already installed.
 
-After GitHub Pages finishes publishing, reopen the game and check Account for v1.5.0. If the old version is still open, close all game tabs/the installed app and reopen it. You do not need to reset your region or change Firebase rules.
+After GitHub Pages finishes publishing, reopen the game and check Account for v1.5.1. If the old version is still open, close all game tabs/the installed app and reopen it. You do not need to reset your region or change Firebase rules.
+
+## Visual Feral selection
+
+Routes: tap a catching area, then use the portrait grid to add/remove Ferals. Search by name or filter by element. Selected portraits show a checkmark. Tapping changes the roster to manual selection. Below the grid, only selected Ferals have rarity/weight controls, and percentages update immediately. Save area settings when finished. Auto-populate still works and previews the biome's base-species roster.
+
+Gyms: edit the gym, open a team slot, and tap its portrait/Choose a Feral button. Tap a species in the searchable grid, then adjust its level and moves. You can clear individual slots; a gym still needs at least one Feral. Changing a species resets that slot's move overrides, while keeping its level and all other slots intact. Save gym team when finished.
 
 ## Tournaments
 
