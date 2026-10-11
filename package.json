@@ -1,6 +1,6 @@
 {
   "name": "feral-regions",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "type": "module",
   "scripts": {
     "test": "node tests.mjs && node auth-tests.mjs && node living-tests.mjs && node storage-tests.mjs && node collection-tests.mjs && node tournament-tests.mjs && node install-tests.mjs"

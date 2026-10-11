@@ -1,3 +1,10 @@
+# Version 1.5.2 — Installation detection fix
+
+- Removed the false “already installed” block based on the current window's display mode. A real browser install prompt remains usable in any display mode.
+- Install status no longer claims a device installation is complete simply because a prompt was accepted or a window is standalone.
+- Added persistent Android/iPad installation help and a copyable game address; prompt failures show clear recovery instructions.
+- Changed-files patch applies over v1.5.1. No save reset or Firebase changes.
+
 # Version 1.5.1 — Visual Feral pickers
 
 - Searchable, element-filtered Feral-dex portrait grids for catching areas and all gym team slots.

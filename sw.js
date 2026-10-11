@@ -1,4 +1,4 @@
-const CACHE='feral-regions-1.5.1';
+const CACHE='feral-regions-1.5.2';
 const ASSETS=['./','./index.html','./style.css','./app.js','./feral-picker.js','./tournaments.js','./tournament-ui.js','./install.js','./living.js','./data.js','./roster.js','./collection.js','./extra-sprites.js','./world.js','./simulation.js','./battle.js','./render.js','./sprites.js','./save.js','./device-store.js','./cloud.js','./icon.svg','./icon-192.png','./icon-512.png','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('feral-regions-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
