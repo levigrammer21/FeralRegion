@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {newState,addTrainer,journal,tick} from './simulation.js';
+import {chatTick,chatUnread} from './world-chat.js';
+import {serialize,validateState} from './save.js';
+import {createChatUI} from './chat-ui.js';
+import {GameAudio} from './game-audio.js';
+import {makeBuilding} from './world.js';
+let s=newState();assert.equal(s.chat.messages.length,1);let a=addTrainer(s,{name:'Evan'}),b=addTrainer(s,{name:'Reid'});let seed=s.seed,serial=s.serial;
+journal(s,'Evan caught SHINY Gravahound!','catch',a.id);let message=s.chat.messages.at(-1);assert.equal(message.name,'Evan');assert.equal(message.text,'I caught SHINY Gravahound!');assert.equal(message.eventId,s.journal[0].id);assert.equal(s.chat.pending.at(-1).trainerId,b.id);assert.equal(s.seed,seed);assert.equal(s.serial,serial+1);s.time+=5;chatTick(s);assert(s.chat.messages.some(m=>m.name==='Reid'&&m.kind==='banter'));
+a.state=b.state='idle';s.chat.next=s.time;seed=s.seed;serial=s.serial;chatTick(s);assert.equal(s.seed,seed);assert.equal(s.serial,serial);assert(s.chat.messages.at(-1).trainerId);
+for(let i=0;i<200;i++)journal(s,'Notice '+i);assert.equal(s.chat.messages.length,120);s.settings.chatRead=0;assert.equal(chatUnread(s),99);
+let fresh=newState();let old=JSON.parse(serialize(fresh));delete old.chat;delete old.settings.chatCollapsed;let migrated=validateState(old);assert(migrated.chat);assert.equal(migrated.settings.chatCollapsed,true);
+s.buildings.push(makeBuilding('lab',5,5));let saved=validateState(serialize(s));assert.equal(saved.chat.serial,s.chat.serial);assert.equal(saved.chat.messages.at(-1).text,s.chat.messages.at(-1).text);
+let before=fresh.chat.serial;tick(fresh,0);assert.equal(fresh.chat.serial,before);
+s.chat.pending=[{at:s.time,trainerId:'gone',text:'phantom'}];chatTick(s);assert(!s.chat.messages.some(m=>m.text==='phantom'));
+let root={innerHTML:'',classList:{toggle(){}},querySelector(){return null}},sounds=[],audio={play(k){sounds.push(k)}};let update=createChatUI(root,audio);s.settings.chatCollapsed=true;update(s);assert(root.innerHTML.includes('chat-launch'));assert(!root.innerHTML.includes('chat-feed'));assert.equal(sounds.length,0);s.settings.chatCollapsed=false;root.querySelector=()=>({scrollTop:0,scrollHeight:100,clientHeight:100});s.chat.messages.at(-1).text='<img onerror="attack()">';update(s);assert(root.innerHTML.includes('&lt;img'));assert(!root.innerHTML.includes('<img onerror'));journal(s,'Evan earned a Badge.','badge',a.id);update(s);assert.equal(sounds.at(-1),'badge');
+let fx=new GameAudio();fx.play('badge');await fx.unlock(false);let played=[];fx.play=k=>played.push(k);let fight={id:'b1',turn:1,last:{at:1,kind:'attack'}};fx.battle(fight);fx.battle(fight);fx.battle({...fight,id:'b2'});fx.battle(fight);assert.deepEqual(played,['attack','attack']);
+console.log('World chat: events, replies, bounded saves, migration, independent RNG, minimized UI, escaping, and audio deduplication passed.');

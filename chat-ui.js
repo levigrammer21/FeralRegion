@@ -1,0 +1,14 @@
+import {ensureChat,chatUnread} from './world-chat.js';
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function createChatUI(root,audio){let state=null,signature='',lastSeq=0;
+ return function update(s,building=false){ensureChat(s);if(root.style){let tray=globalThis.document?.getElementById('buildTray');root.style.bottom=building&&tray?Math.max(100,globalThis.innerHeight-tray.getBoundingClientRect().top+8)+'px':'';}let fresh=state!==s;if(fresh){state=s;lastSeq=s.chat.serial;signature='';}
+ let newMessages=s.chat.messages.filter(m=>m.seq>lastSeq);lastSeq=s.chat.serial;audio.enabled=!!s.settings.sound;
+ if(!fresh){let events=newMessages.filter(m=>m.kind!=='banter');let priority=events.find(m=>m.kind==='catch'&&m.text.includes('SHINY'))||events.find(m=>['badge','elite','evolution'].includes(m.kind))||events.at(-1);if(priority)audio.play(priority.kind==='catch'&&priority.text.includes('SHINY')?'shiny':priority.kind);}
+ let collapsed=s.settings.chatCollapsed,unread=chatUnread(s),key=[s.chat.serial,collapsed,unread,s.settings.sound,building].join(':');if(key===signature)return;signature=key;
+ let feed=root.querySelector('.chat-feed'),scroll=feed?.scrollTop||0,atBottom=!feed||feed.scrollHeight-feed.clientHeight-scroll<30;
+ root.classList.toggle('collapsed',collapsed);
+ if(collapsed){root.innerHTML=`<button class="chat-launch" data-action="chat-toggle" aria-label="Open world chat${unread?', '+unread+' unread messages':''}">☏ World chat${unread?` <b>${unread===99?'99+':unread}</b>`:''}</button>`;return;}
+ root.innerHTML=`<div class="chat-head"><strong>WORLD CHAT</strong><button data-action="sound" aria-label="${s.settings.sound?'Mute':'Enable'} sound" title="${s.settings.sound?'Mute':'Enable'} sound">${s.settings.sound?'♫':'♫ off'}</button><button data-action="chat-toggle" aria-label="Minimize world chat">−</button></div><div class="chat-feed" role="log" aria-label="NPC conversations and region notifications" aria-live="off">${s.chat.messages.map(m=>`<div class="chat-line ${m.kind==='banter'?'':'chat-event'}"><span class="chat-time">D${Math.floor(m.time/240)+1}</span> ${m.trainerId?`<button data-action="trainer" data-id="${esc(m.trainerId)}">${esc(m.name)}</button>`:`<strong>${esc(m.name)}</strong>`}<p>${esc(m.text)}</p>${m.eventId?`<button class="chat-details" data-action="event" data-id="${esc(m.eventId)}">${['gym','elite','tournament'].includes(m.kind)?'View event →':'Details →'}</button>`:''}</div>`).join('')||'<p class="chat-empty">Trainers will chat here as your region comes to life.</p>'}</div>`;
+ feed=root.querySelector('.chat-feed');feed.scrollTop=atBottom?feed.scrollHeight:scroll;if(atBottom)s.settings.chatRead=s.chat.serial;
+ };
+}

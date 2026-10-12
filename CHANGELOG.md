@@ -1,3 +1,11 @@
+## v1.6.0 — NPC world chat and sound
+
+- Trainers announce real catches, starters, badges, evolutions, gym challenges, rival results, tournaments, and League changes. Other trainers reply; occasional jokes and conversations reflect actual teams and ambitions.
+- Tap World chat to read; tap − to minimize it completely to a small button with an unread count. Build mode and opening management panels minimize it automatically. Its position clears the build tools.
+- Tap a speaker for their profile or Details / View event for the related trainer or battle. History holds the last 120 messages and persists in saves. Dialogue uses a separate random stream and stops with the simulation.
+- Optional quiet synthesized effects for buttons, building placement, watched battle attacks, critical hits, healing, orb attempts, catches, shiny catches, badges, evolutions, arrivals, and League / tournament announcements. Sound starts off; enable or mute in the chat header or Account.
+- Existing saves migrate automatically; no reinstall or reset required. Updated offline cache includes all three new modules.
+
 # Version 1.5.3 — Native browser installation promotion
 
 - Stopped cancelling Chrome's beforeinstallprompt event so its native install promotion can appear.
