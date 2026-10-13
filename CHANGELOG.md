@@ -1,3 +1,12 @@
+## v2.0.1 — Build menu scrolling fix
+
+- Horizontal swipes on building / decoration cards now browse the tool row. The menu no longer captures every touch as a placement drag or resets the row on native scroll cancellation.
+- Added Previous / More arrow buttons for all tool categories, plus a visible scrollbar. Mouse dragging can browse horizontally too.
+- Only deliberate upward drags from building / decor cards start placement. Taps still select a tool; dragging on the map keeps the normal placement behavior. Swiping suppresses accidental card clicks.
+- Retain the row position when selecting a tool. Changing categories starts at the beginning.
+- Tournament arena and spectator stands are now available directly in the Buildings category with houses and duel courts.
+- Updated offline release; saves and installation remain unchanged.
+
 ## v2.0.0 — Regional seasons and spectator duels
 
 - Automatic regional championships when a tournament arena exists. Default: seven game-days between completed seasons, $1,000 outside-funded prize pool, top four places. Configure 1–30 days, $100–$10,000, and top 1–16 places in the arena or Tournaments panel; disable automatic seasons if desired.
