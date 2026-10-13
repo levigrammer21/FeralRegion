@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {SPECIES,encounterWeight} from './data.js';
 import {newState,addTrainer,finishBattle,rebalanceTeam} from './simulation.js';
 import {feral,startBattle,battleTick,stats,random} from './battle.js';
-import {ownsVariant,wantsCatch,swapActive,trainerGoal} from './collection.js';
+import {ownsVariant,wantsCatch,swapActive,trainerGoal,trainerPreference} from './collection.js';
 import {validateState,serialize} from './save.js';
 import {makeBuilding,candidates} from './world.js';
 import {packCloud,unpackCloud} from './cloud.js';
@@ -13,6 +13,6 @@ let old=JSON.parse(serialize(s));old.trainers[0].storage.find(f=>f.species==='Gr
 let area={biome:'meadow',species:['Cinderkit','Mossprig','Wishling'],encounterWeights:{Cinderkit:100,Mossprig:20,Wishling:4}};let list=candidates(s,'meadow',area);assert.equal(list.reduce((n,f)=>n+encounterWeight(area,f),0),124);area.encounterWeights.Wishling=0;assert.equal(candidates(s,'meadow',area).length,2);
 function attempt(shiny){let s=newState();s.seed=99;let t=addTrainer(s,{species:'Bastionhorn',level:60});t.mindset='collect';let f=feral(s,'Mossprig',5);f.shiny=shiny;f.hp=stats(f).hp*.25;let b=startBattle(s,{a:t,b:{name:'wild',team:[f]},type:'wild'});for(let i=0;i<1000&&!b.done;i++)battleTick(s,b,.1);return {captured:!!b.captured,tries:b.catchTries,seed:s.seed};}assert.deepEqual(attempt(false),attempt(true),'Shiny flag cannot alter catch odds or consume extra RNG');
 s=newState();let count=0;for(let i=0;i<100000;i++)if(random(s)<.01)count++;assert.ok(count>850&&count<1150);
-s=newState();t=addTrainer(s,{species:'Cinderkit',level:10});let b=startBattle(s,{a:t,b:{name:'wild',team:[feral(s,'Mossprig',3)]},type:'wild'});b.winner='a';let cash=s.cash;finishBattle(s,b);finishBattle(s,b);assert.equal(s.cash-cash,1,'Wild treasury bounty pays exactly once');t.mindset='money';assert.equal(trainerGoal(t),'money');t.mindset='auto';t.money=0;assert.equal(trainerGoal(t),'money');
+s=newState();t=addTrainer(s,{species:'Cinderkit',level:10});let b=startBattle(s,{a:t,b:{name:'wild',team:[feral(s,'Mossprig',3)]},type:'wild'});b.winner='a';let cash=s.cash;finishBattle(s,b);finishBattle(s,b);assert.equal(s.cash-cash,1,'Wild treasury bounty pays exactly once');t.mindset='money';assert.equal(trainerGoal(t),'best');assert.equal(trainerPreference(t),'money');t.mindset='auto';t.money=0;assert.equal(trainerGoal(t),'best');
 let big=JSON.stringify({items:Array(12000).fill({species:'Titanblood Gravahound',shiny:true,level:75,moves:['Tackle','Titanfall'],hp:444})});let packed=await packCloud(big);assert.ok(packed.startsWith('gzip:'));assert.equal(await unpackCloud(packed),big);
 console.log('Collection checks pass: 108 species, migration, large storage, independent variants, swaps/manual lock, weights, identical shiny catch odds, 1% roll, one-time bounty, mindsets and compressed cloud round-trip.');

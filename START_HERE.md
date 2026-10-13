@@ -1,27 +1,50 @@
-# Feral Regions v2.1.0
+# Feral Regions v2.2.0 — Champion ambition AI
 
-This is the complete updated game. Extract the ZIP into its one enclosing folder. Upload the files INSIDE that folder directly to the root of your existing GitHub repository, replacing matching files. Include all six new JavaScript modules. Do not upload the enclosing folder as a repository subfolder.
+This ZIP contains the complete game in one enclosing folder. Upload the files inside that folder directly to the root of your existing GitHub repository, replacing matches. Include trainer-ai.js and combat-ai.js. Do not upload the enclosing folder as a repository subfolder.
 
-Your existing account, region, buildings, trainers, collections, and tournaments migrate automatically. No reset or reinstall is needed. Export a JSON backup from Account before updating.
+Your existing region, trainers, teams, collections, businesses, houses and tournaments migrate without a reset. Export a JSON backup from Account before updating. After Pages publishes, open the installed app online and use Account → Save & load the app update when offered.
 
-After GitHub Pages publishes, open the installed app online. Account → Save & load the app update applies the new cached release when offered. Close and reopen if needed.
+## The new trainer logic
 
-## Where to find the new features
+Every trainer's main ambition is to become Champion. Collecting, money, and reputation are secondary preferences, configured in each trainer's profile. Existing mindset selections are retained as preferences; an old “Become the best” selection now means extra interest in reputation/duels, because becoming the best is universal.
 
-- **Problems:** tap the `!` camera button or Region → Region problems. Toggle map warnings, Locate a warning, or Inspect its building/trainer/area. Warnings clear when you resolve them.
-- **Businesses:** Region → Businesses, or inspect a shop, healing lodge, or café. Set the sale price and profit tax, then list it. Run the game to receive offers. Review and approve a sale; ownership never transfers automatically. A buyer must afford the price plus a $120 operating reserve and $80 personal buffer, and can own only one business.
-- **Business accounts:** customer payments fund the business. Supplies, upgrades, and daily upkeep come from its funds and owner wallet. At day end, tax on positive daily profit goes to your treasury; cash above the $120 reserve goes to the owner. Owner wallets automatically cover operating deficits where possible. An unfunded business pauses service; you can approve a $120 owner contribution, approve an owner-funded upgrade, or buy it back. Owned businesses must be bought back before demolition. Moving and setting service fees still work.
-- **Rivalries:** Region → Rivalries and each trainer's profile show head-to-head records after at least two meetings. Close-level rivals receive a rematch preference. Established rivalries attract spectators faster at duels and tournaments; seat capacity still limits crowds.
-- **Sanctuary:** Build → Buildings → Feral sanctuary. Inspect it, choose a trainer and reserve Feral, and add up to eight exhibits. Rare and shiny Ferals improve visitor interest. The Ferals remain their trainers' property, without changing battle stats. Bringing an exhibit onto its active team removes it from display. Set tickets from $0 to $15; excessive prices deter exhibition visitors. A reachable entrance and an open catching area are required for exhibition ticket income.
+The main progression is: next missing badge → prepare and attempt the gym → adapt after a loss → earn eight badges → prepare for an outside Elite Four run. Missing species never block advancement. Trainers do not skip a missing gym order just because a later gym exists.
 
-## Combat and efficiency
+- Bold trainers attempt earlier, tolerate more risk, and enjoy proving themselves in duels.
+- Patient trainers favor healthier teams, safer training, and savings.
+- Strategists prepare elemental coverage and counters from their existing collection.
+- Collectors and Wanderers seek missing species while pushing into useful stronger zones and earning the badges that unlock further areas.
 
-Tonics are never used inside battles. After ordinary battles, an injured teammate below half health may consume one tonic to recover half its maximum HP. Tournament teams are fresh exhibition copies; Elite battles already provide full free recovery and do not waste tonics afterward.
+Gym readiness considers the active party's strength, matchup, health, and leading level. Being competitive is enough to try; victory is never guaranteed. After a loss, trainers need a useful party improvement, a level gain, or two training encounters before retrying. Repeated losses increase preparation targets and retry spacing.
 
-Quest reachability now uses connected land sections. Habitat candidates and tile membership are cached, initialization does not rescan the population every simulation step, and trainer profiles update changing sections without rebuilding large reserve collections. Operating profit is separated from grants, construction, upgrades, and business sales.
+Training areas are scored by useful levels, danger, reachable routes, badge gates and travel, with bounded bonuses for collection, counters and quests. Early-area gaps and unfinished circuit quests cannot monopolize training. Trainers retain a short area plan instead of changing their minds every moment. Repeated wild losses prompt reconsideration.
 
-The level-cap evolution edge case, invalid imported speeds, capture action ordering, and placements that cut off entrances are fixed. Late-game careers were not added.
+Automatic teams prepare for the next opponent. Opening Ferals and replacements use health and matchup. Wild encounters can give a reasonably competitive developing teammate a chance to train. Manual active parties remain under your control, including their selected opener; reserves never swap into an ongoing battle or ranked run.
 
-## Verification
+Shopping compares reachable, stocked and affordable stores. Money-focused trainers keep smaller supply budgets and seek profitable gym rematches during preparation. Essential purchases remain possible below their preferred reserve. An eligible primary challenge takes priority over shopping, collecting, quest errands, duels and voluntary tournament entry. Mandatory free regional seasons still include everyone.
 
-All 14 automated test suites pass, including 13 new gameplay/accounting regression checks. App interface logic and native Canvas rendering were checked at 390×844 and 1024×1366 with a 216-Feral collection and 4× simulation. A complete browser/CSS/touch check was unavailable in the build environment; check native touch controls on your device after publishing. Live Firebase behavior was not changed or exercised against your account.
+## Elite Four — fixed seats, outside challengers only
+
+Members do not challenge each other or leave their seats to climb. The rankings stay set until changed by an outside challenger beating them.
+
+An outside trainer with eight badges starts at #4. A win takes that seat; subsequent wins continue through #3, #2 and #1 in the SAME run. Teams recover between matches. A loss ends the run, preserving any seat already earned. A run also ends when the challenger becomes Champion. Only one run is active at a time.
+
+After a full run ends, that trainer cannot begin another for **five game-days (1,200 game-seconds)**. This timer is saved and pauses with the rest of the world. It never interrupts a successful climb. Outsiders use the wait to train, improve their collection, recover and earn money. A displaced #4 can pursue re-entry once their existing run cooldown permits it.
+
+## Paid gym rematches
+
+After a trainer earns a badge, that gym becomes available to them again after **seven game-days (1,680 game-seconds)**. Every subsequent rematch attempt, won or lost, resets that trainer's timer for that gym. Other trainers and other gyms have independent timers. First-time gym losses use the shorter preparation/retry rules, so beginners are not locked out for a week.
+
+Successful first badge challenges pay $35 + $10 × gym number. Successful rematches pay $35 + $15 × gym number ($50 at Gym 1 through $155 at Gym 8), before any entry fee. Losses pay no prize. Prizes are outside-funded and do not deduct money from your region treasury. Rematches never award duplicate badges and cannot pay twice for the same completed battle.
+
+Trainer profiles show “Paid gym rematches” with each earned gym's prize and availability. When migrating an old region, available recent win records seed those schedules; if a gym's old win time is unavailable, its seven-day timer begins when the trainer's new plan initializes.
+
+## Validation and practical limits
+
+All 15 automated suites pass, including 30 new ambition/rematch checks. The separate stress test runs 54 trainers through a complete eight-gym, five-zone region for 180 game-days using real battles and natural XP. It checks outside-only Elite entry, the five-day run interval, seven-day gym rematches, ranked battle exclusivity and valid saves.
+
+Run `npm test` for regressions and `npm run test:stress` for the full population simulation. `node ai-stress.mjs 180 54` accepts other day/population counts. No remote Firebase writes occur in these checks.
+
+Trainers still need suitable open habitats and connected facilities. The AI cannot invent a missing gym, ignore badge gates, walk through water or guarantee wins against an unbeatable player-designed team. Their profiles explain the next goal and preparation reason; the Problems panel identifies world issues.
+
+App interface logic and native Canvas rendering were checked at phone/tablet sizes with a large reserve collection and 4× frames. Full browser/CSS/native-touch verification remains a device check.

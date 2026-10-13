@@ -1,5 +1,5 @@
 import {EXTRA_ROWS} from './roster.js';
-export const VERSION='2.1.0';
+export const VERSION='2.2.0';
 export const TYPES={Nature:{color:'#82bc59',strong:['Water','Stone'],weak:['Fire','Ice']},Fire:{color:'#ef9160',strong:['Nature','Ice'],weak:['Water','Stone']},Water:{color:'#68bed5',strong:['Fire','Stone'],weak:['Nature','Storm']},Stone:{color:'#baa786',strong:['Fire','Storm'],weak:['Water','Nature']},Storm:{color:'#f4d870',strong:['Water','Air'],weak:['Stone']},Ice:{color:'#b4e4ef',strong:['Nature','Air'],weak:['Fire']},Shadow:{color:'#ad93d0',strong:['Arcane'],weak:['Radiant']},Radiant:{color:'#ffdd9a',strong:['Shadow'],weak:['Arcane']},Arcane:{color:'#d992cc',strong:['Radiant'],weak:['Shadow']},Air:{color:'#b9d5ad',strong:['Nature'],weak:['Storm','Ice']}};
 // name, type, silhouette, color, accent, habitat, rarity, evolution, evolution level, temperament
 const rows=[

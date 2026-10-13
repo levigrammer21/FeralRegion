@@ -1,3 +1,15 @@
+## v2.2.0 — Every trainer pursues Champion
+
+- Universal badge/Champion ambition; preserved mindset fields now express secondary collection, money, or reputation preferences.
+- Persistent targets and short habitat commitments, party/matchup assessment, near-boundary gym attempts and learning after losses. Missing species and circuit quests no longer postpone gym progression indefinitely.
+- Level/risk/travel-driven training-area scoring with bounded secondary bonuses, saved wild setbacks and meaningful post-loss preparation.
+- Counter-aware party preparation computed with one score pass and six linear selections. Fixed a generic-vs-targeted healing selection loop. Manual parties remain locked; combat openings and replacements use visible health and matchup.
+- Stock/price-aware shopping, distinct savings/supply preferences, essential low-wallet purchases and bounded solo-duel waits. New badges and eligible Elite runs outrank optional activities/tournaments; free regional seasons remain mandatory.
+- Elite Four ranks remain fixed until outside defeats. No internal member challenges. Outside eight-badge trainers start at #4 and continue their one run as far as possible. Five game-days between completed runs, saved and enforced at queue entry.
+- Per-trainer, per-gym seven-day rematch timers begin after earning the badge and reset after each rematch attempt. Win-only prizes are $35 + $15 × order; no duplicate badge or duplicate payout. First-badge losses keep short adaptive retries.
+- Trainer profiles explain ambition, next target, preparation and paid-gym availability. New offline shell version includes both AI modules.
+- All 15 suites pass, including 30 AI/rematch regressions and seeded natural-progression scenarios. Full 54-trainer stress test included; checks cooldowns, outside-only entry, battle exclusivity and save integrity.
+
 ## v2.1.0 — Region management, trainer businesses and exhibitions
 
 - Fixed capture action ordering and removed all in-battle tonic consumption. Both trainers can recover with tonics after ordinary fights; tournament copies and already-healed Elite teams do not consume them.

@@ -2,9 +2,17 @@
 
 **Build a world. Watch a legend.**
 
-Version 2.1.0 · static GitHub Pages project · all files at repository root
+Version 2.2.0 · static GitHub Pages project · all files at repository root
 
 Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, controls, and gameplay.
+
+## New in 2.2.0
+
+Every trainer pursues Champion. Collecting, money and reputation support progression instead of replacing it. Added persistent preparation plans, matchup-aware parties and openings, adaptive gym retries, stronger-zone training, budgeted shopping and bounded duel waits.
+
+Elite Four seats are fixed until an outside defeat; no internal challenges. A full outside run starts at #4 and continues as far as possible, followed by a five-game-day cooldown. Earned gyms have independent seven-game-day rematch timers and win-only money prizes without duplicate badges.
+
+`npm test` runs all 15 suites; `npm run test:stress` exercises 54 trainers across 180 simulated days. See START_HERE.md for rules, migration and controls.
 
 ## New in 2.1.0
 

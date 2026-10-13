@@ -1,3 +1,15 @@
+# Validation — Feral Regions 2.2.0
+
+All 15 automated suites pass. This includes the 26 base checks, 13 prior upgrade checks and 30 new ambition/rematch checks. The new tests cover primary-goal precedence, varied risk, stronger-zone choice, blocked/gated habitats, commitment and loss memory, manual parties, healing-loop prevention, shop budgets, bounded duel waits, eight-badge Elite entry, fixed incumbent seats, single full climbing runs, exact five-day boundaries, saved cooldowns and seven-day per-gym win/loss schedules/payouts.
+
+Natural progression was tested across three seeds and all five personalities with accessible training rosters. Those tests use real battles, normal catch odds and natural XP; they do not force wins or inject levels.
+
+The optional `npm run test:stress` uses 54 trainers, all eight default gyms, five increasingly strong habitats, reachable facilities and a generous treasury to isolate AI behavior. It runs 180 game-days with quarter-second steps and checks outside-only Elite entry, five-day run intervals, seven-day per-gym rematches, at most one ranked battle, and save validation. See AI_STRESS_RESULTS.md for the final run's metrics. These are fixture outcomes, not guaranteed pacing for every player-designed region.
+
+The actual app functions and native Canvas were checked at 390×844 and 1024×1366 with a 216-Feral collection and 4× frames, including prior businesses, sanctuaries, rivalry UI and stable reserve updates. No browser executable was available; this does not certify physical touch controls or real CSS/browser layout. Firebase remains unchanged and was not exercised against a live account.
+
+## Prior verification record
+
 # Validation — Feral Regions 2.1.0
 
 `npm test`: all 14 suites pass, including the 26 original base checks and 13 new upgrade regression checks.
