@@ -1,3 +1,12 @@
+## v1.7.0 — Trainer jobs and income
+
+- Starter lab quest board: field surveys ($28 for 3 encounters), training studies ($34 for 3 wild wins), supply deliveries ($20), and lab work ($22 for 45 game-seconds). One active quest; trainers physically visit destinations and return to the lab for payment.
+- Collectors favor research; competitive trainers favor training; earn-money trainers alternate deliveries and odd jobs. Below $45, easy paid work takes priority. Quest progress, lifetime job earnings, and recent income appear in trainer profiles and world chat.
+- Automatic quests use an outside research fund. Up to four optional sponsored delivery / odd jobs reserve $5–$100 each from your treasury. Trainers claim them automatically. Unclaimed jobs can be cancelled for a refund; payment occurs once from escrow.
+- Rival wins now receive an outside League prize ($12–$24), without draining the loser. A pair can earn one prize per 120 game-seconds, including after reloading.
+- Existing first-badge prizes remain $45–$115. Money and competitive trainers can rematch beaten gyms for $20–$34, with a six-game-minute retry interval. Rematches do not award duplicate badges or reputation.
+- Existing wild rewards, research stipends, and tournament payouts remain available. Save migration preserves existing regions, chat, and installs; offline cache includes the new jobs module.
+
 ## v1.6.0 — NPC world chat and sound
 
 - Trainers announce real catches, starters, badges, evolutions, gym challenges, rival results, tournaments, and League changes. Other trainers reply; occasional jokes and conversations reflect actual teams and ambitions.

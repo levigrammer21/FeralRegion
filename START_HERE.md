@@ -1,13 +1,13 @@
-# Feral Regions v1.6.0 — changed files
+# Feral Regions v1.7.0 — changed files
 
-Upload every file from this folder directly into the root of your existing FeralRegion GitHub repository, replacing files with matching names. Do not upload the enclosing folder itself. Three new runtime files are required: world-chat.js, chat-ui.js, and game-audio.js.
+Upload all files in this folder directly to your existing FeralRegion repository root, replacing matching files. The enclosing folder is only for neat extraction; do not upload it as a subfolder. trainer-jobs.js is new and required.
 
-After GitHub Pages finishes publishing, open the installed app online. In Account, use Save & load the app update when offered. If needed, close and reopen once for the new offline cache to activate. Your region is preserved; you do not need to reinstall.
+After Pages publishes, open your installed app online. In Account, choose Save & load the app update when offered. Close and reopen if necessary for the new cached release. Existing saves migrate automatically. No reset or reinstall is needed.
 
-Tap World chat near the bottom of the map to open the feed. Trainers announce game events and talk to each other. Tap − to minimize; new messages become an unread count. Building and opening management panels automatically minimize the feed. Tap a trainer's name to inspect them, or View event to inspect its battle / trainer.
+Tap the starter lab to see automatic quest payouts and post optional sponsored jobs. Ordinary quests never debit your treasury. Sponsored jobs reserve their reward immediately; cancelling an unclaimed job refunds it. Trainers automatically take one quest at a time, travel to work, and return to the lab for their reward.
 
-Sound starts off. Open chat and tap ♫ off to enable it, or use Account → Sound. Your preference is saved. Browsers require a tap after reopening before audio can play. Battle effects play for the battle you are watching; milestone chimes work anywhere in the game. No sound plays while the app is hidden.
+Tap a trainer for quest progress and recent earnings. Their mindset guides job choice, and low funds prioritize safe deliveries or odd jobs. Research requires encounters, not rare captures. Training quests require wild wins. Missing destinations and expired quests release reservations so the trainer can resume adventuring.
 
-The feed is local NPC dialogue, not a multiplayer chat or a paid AI service. It follows actual events and keeps up to 120 messages. The existing Journal remains accessible from the clock / region menu.
+Trainer battles pay $12–$24 from the League, limited to one reward per pair every 120 game-seconds. The loser keeps their gold. First gym wins retain their larger badge prize; eligible trainers can rematch won gyms for $20–$34 after 360 game-seconds. Tournament payouts keep following your tournament rules.
 
-Validation: full npm test suite including chat persistence, old-save migration, milestone routing, independent dialogue randomness, bounded history, escaping, collapsed UI, and battle sound deduplication. Native phone audio and visual layout still require device verification.
+Full automated suite passed, including autonomous recovery from $0, saved quest progress and sponsored escrow, single payouts, cancellation refunds, rival reward cooldowns, gym badge/rematch payouts, and old-save migration. Native phone layout remains a device check.
