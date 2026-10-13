@@ -1,3 +1,13 @@
+## v2.0.0 — Regional seasons and spectator duels
+
+- Automatic regional championships when a tournament arena exists. Default: seven game-days between completed seasons, $1,000 outside-funded prize pool, top four places. Configure 1–30 days, $100–$10,000, and top 1–16 places in the arena or Tournaments panel; disable automatic seasons if desired.
+- Every trainer present when a season opens enters free, including Elite Four residents, regardless of wallet, badges, team size, or mindset. Current battles/starters finish first. Active custom tournaments and Elite Four challenge runs finish before a season opens. Blocked paths hold the event for repair.
+- Supports 1–54 entrants with automatic byes, full active teams, healed match copies, no real HP loss, XP grants, or tonic use. Outside prize money is paid exactly once; cancelling cannot mint the virtual prize pool into the treasury. Tied elimination-round placings share their payout allocation.
+- Season champions receive trophies, career/leaderboard recognition, saved history, a region record, and celebratory world chat. Elite Four residents return to their seats and original positions after the event.
+- New Duel court ($950, 4×3, $4 daily upkeep). Trainer-versus-trainer encounters now happen at courts instead of wild routes. Trainers travel, queue, battle, gain ordinary duel XP and League rewards, and recover afterward. One fight per court; per-trainer rest intervals and existing pair reward limits prevent endless instant rematches.
+- Nearby stands attract visible paying spectators during duels. Default tickets $2, adjustable $0–$15; each visitor pays on arrival. Crowds build toward capacity and disperse gradually. Each eight-seat stand belongs to its nearest arena/court within 14 tiles, avoiding double-booked seats.
+- Court panels show matches, queues, attendance and ticket revenue with live battle links. Active courts cannot move or demolish until their fight ends. Seasons and queues resume from saves; no offline time advances.
+
 ## v1.9.0 — Homes, leaderboards, careers, and region statistics
 
 - Build trainer houses ($600, 3×3). Vacant homes sell automatically to reachable trainers who can afford the configured purchase price plus $40 in reserve. Default price $120; proceeds go to your treasury. You can gift vacant houses to trainers for free.

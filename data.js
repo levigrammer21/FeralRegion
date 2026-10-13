@@ -1,5 +1,5 @@
 import {EXTRA_ROWS} from './roster.js';
-export const VERSION='1.9.0';
+export const VERSION='2.0.0';
 export const TYPES={Nature:{color:'#82bc59',strong:['Water','Stone'],weak:['Fire','Ice']},Fire:{color:'#ef9160',strong:['Nature','Ice'],weak:['Water','Stone']},Water:{color:'#68bed5',strong:['Fire','Stone'],weak:['Nature','Storm']},Stone:{color:'#baa786',strong:['Fire','Storm'],weak:['Water','Nature']},Storm:{color:'#f4d870',strong:['Water','Air'],weak:['Stone']},Ice:{color:'#b4e4ef',strong:['Nature','Air'],weak:['Fire']},Shadow:{color:'#ad93d0',strong:['Arcane'],weak:['Radiant']},Radiant:{color:'#ffdd9a',strong:['Shadow'],weak:['Arcane']},Arcane:{color:'#d992cc',strong:['Radiant'],weak:['Shadow']},Air:{color:'#b9d5ad',strong:['Nature'],weak:['Storm','Ice']}};
 // name, type, silhouette, color, accent, habitat, rarity, evolution, evolution level, temperament
 const rows=[
@@ -75,3 +75,5 @@ export const encounterWeight=(area,f)=>area.encounterWeights?.[f.name]??Math.max
 Object.assign(BUILDINGS,{arena:{name:'Tournament arena',cost:1400,color:'#8c729f',width:5,height:4,fee:0,upkeep:8},stands:{name:'Spectator stands',cost:180,color:'#a78a60',width:3,height:2,fee:0,upkeep:1}});
 
 Object.assign(BUILDINGS,{house:{name:'Trainer house',cost:600,color:'#799681',width:3,height:3,fee:0,upkeep:0}});
+
+Object.assign(BUILDINGS,{duel:{name:'Duel court',cost:950,color:'#a47d69',width:4,height:3,fee:2,upkeep:4}});
