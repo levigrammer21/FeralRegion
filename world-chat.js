@@ -1,5 +1,5 @@
 // Local NPC dialogue. Its own random stream never changes combat or trainer decisions.
-const LIMIT=120;
+const LIMIT=240;
 export function ensureChat(s){
  s.settings??={};
  s.settings.chatCollapsed=s.settings.chatCollapsed!==false;
@@ -8,50 +8,51 @@ export function ensureChat(s){
  c.messages=(Array.isArray(c.messages)?c.messages:[]).filter(m=>m&&Number.isFinite(m.seq)&&Number.isFinite(m.time)&&typeof m.text==='string'&&typeof m.name==='string').slice(-LIMIT).map(m=>({...m,text:m.text.slice(0,360),name:m.name.slice(0,60)}));
  c.serial=Math.max(Number.isFinite(c.serial)?c.serial:0,...c.messages.map(m=>m.seq));
  c.seed=Number.isFinite(c.seed)?c.seed>>>0:((s.seed^0x7fab1234)>>>0)||19;
+ c.threadSerial=Number.isFinite(c.threadSerial)?c.threadSerial:0;c.recentTopics=Array.isArray(c.recentTopics)?c.recentTopics.slice(-8):[];
  c.next=Number.isFinite(c.next)?c.next:s.time+35;
- c.pending=Array.isArray(c.pending)?c.pending.filter(p=>p&&Number.isFinite(p.at)&&typeof p.text==='string'&&typeof p.trainerId==='string').slice(-6).map(p=>({...p,text:p.text.slice(0,360)})):[];
+ c.pending=Array.isArray(c.pending)?c.pending.filter(p=>p&&Number.isFinite(p.at)&&typeof p.text==='string'&&typeof p.trainerId==='string').slice(-60).map(p=>({...p,text:p.text.slice(0,360)})):[];
  s.settings.chatRead=Number.isFinite(s.settings.chatRead)?Math.min(c.serial,s.settings.chatRead):c.serial;
  return c;
 }
 function rng(c){c.seed=(Math.imul(1664525,c.seed)+1013904223)>>>0;return c.seed/4294967296;}
 function pick(c,a){return a[Math.floor(rng(c)*a.length)];}
-function post(s,name,text,kind='banter',trainerId=null,eventId=null){const c=s.chat;let m={seq:++c.serial,time:s.time,name,text,kind,trainerId,eventId};c.messages.push(m);if(c.messages.length>LIMIT)c.messages.splice(0,c.messages.length-LIMIT);return m;}
-function reply(s,t,text){if(s.chat.pending.length<6)s.chat.pending.push({at:s.time+4,trainerId:t.id,text});}
-export function chatEvent(s,e){if(!s.chat)ensureChat(s);let t=s.trainers.find(t=>t.id===e.trainerId),c=s.chat,text=e.text,name='Region bulletin';
- if(t){name=t.name;let rest=text.startsWith(t.name+' ')?text.slice(t.name.length+1):text;
- const starters={arrival:'Just arrived! Where do I pick up my first Feral?',starter:'My first partner! '+rest,catch:'I '+rest,badge:'I '+rest,gym:'Time for a gym battle. '+rest,evolution:'Team update: '+rest,elite:rest,tournament:rest};text=starters[e.kind]||rest;
- }
- post(s,name,text,e.kind,t?.id||null,e.id);
- if(t&&['arrival','starter','catch','badge','evolution','elite'].includes(e.kind)){
-  let others=s.trainers.filter(v=>v.id!==t.id);if(others.length){let other=pick(c,others),responses={arrival:['Welcome! The lab is a good first stop.','Welcome! Watch out for the tall grass. It watches back.'],starter:['That is a great first partner.','First rule: snacks are shared. Your Feral will enforce it.'],catch:e.text.includes('SHINY')?['A shiny?! Okay, I am officially jealous.','One in a hundred and you found it. Incredible!']:['Nice catch! Save an orb for the next one.','Your collection is getting serious.'],badge:['Congratulations! That badge was earned.','Save me a spot in the victory photo!'],evolution:['Your partner just got a serious upgrade.','Same friend, much bigger food bill.'],elite:['That League ladder is getting interesting!','Looks like we have a new trainer to beat.']};reply(s,other,pick(c,responses[e.kind]));}
- }
+function post(s,name,text,kind='banter',trainerId=null,eventId=null,mood='chatty',thread=null){const c=s.chat;let m={seq:++c.serial,time:s.time,name,text,kind,trainerId,eventId,mood,thread};c.messages.push(m);if(c.messages.length>LIMIT)c.messages.splice(0,c.messages.length-LIMIT);return m;}
+function conversation(s,people,lines,topic){let c=s.chat,thread=++c.threadSerial,at=s.time;c.recentTopics=[...(c.recentTopics||[]),topic].slice(-8);for(let i=0;i<lines.length;i++){let [who,text,mood='chatty']=lines[i],t=people[who];if(!t)continue;if(i===0)post(s,t.name,text,'banter',t.id,null,mood,thread);else if(c.pending.length<60)c.pending.push({at:(at+=2.5+rng(c)*2),trainerId:t.id,text,mood,thread});}}
+export function chatEvent(s,e){if(!s.chat)ensureChat(s);let t=s.trainers.find(t=>t.id===e.trainerId),c=s.chat,text=e.text,name='Region bulletin',rest=t&&text.startsWith(t.name+' ')?text.slice(t.name.length+1):text,mood='chatty';
+ if(t){name=t.name;const starters={arrival:'Just arrived! Where do I pick up my first Feral?',starter:'My first partner! '+rest,catch:'I '+rest,badge:'I '+rest,gym:e.text.includes('lost')?'I lost that gym challenge. I need to rethink this.':'Time for a gym battle. '+rest,evolution:'Team update: '+rest};text=starters[e.kind]||rest;mood=e.text.includes('lost')?'frustrated':['catch','sighting','badge','elite','evolution'].includes(e.kind)?'excited':['quest','income'].includes(e.kind)?'focused':'chatty';}
+ post(s,name,text,e.kind,t?.id||null,e.id,mood);
+ if(!t)return;let others=s.trainers.filter(v=>v.id!==t.id);if(!others.length)return;let friend=pick(c,others),third=pick(c,others.filter(v=>v.id!==friend.id))||t,people=[t,friend,third],topic=e.kind+':'+e.id;
+ let lines=null;
+ if(e.kind==='sighting')lines=[[1,`${t.name}, a SHINY?! Do not blink!`,'excited'],[0,'I saw the colors and nearly forgot how to throw an orb.','excited'],[2,'Breathe. You have to actually breathe.','concerned'],[0,'I am trying! Whatever happens, that sighting counts for my research.','excited'],[1,'Tell us how it goes. We are all watching this chat now.','excited']];
+ else if(e.kind==='catch'&&e.text.includes('SHINY'))lines=[[1,`${t.name}, WAIT. Did you say SHINY?!`,'excited'],[0,'YES! I thought the sunlight was playing tricks on me!','excited'],[2,'Everybody stay calm. I am absolutely not staying calm.','excited'],[1,'Tell us everything. The orb throw. The suspense. Everything.','excited'],[0,'I barely breathed until it stayed in the orb. My hands are STILL shaking.','excited'],[2,'That Feral just became the most photographed resident here.','playful'],[1,'You earned that celebration. Seriously.','warm']];
+ else if(e.kind==='catch')lines=[[1,`${t.name}, nice catch! New for your collection?`,'excited'],[0,'A new partner, yes! That orb finally did its job.','proud'],[1,'My orbs mostly do dramatic bouncing.','frustrated'],[0,'Mine did that too. This one decided to cooperate.','playful'],[2,'Can we teach the bouncing ones to pay for themselves?','playful']];
+ else if(e.kind==='badge')lines=[[1,`${t.name}! You actually did it!`,'excited'],[0,'I DID. That last turn was far too close.','excited'],[1,'How close are we talking?','curious'],[0,'The “I need to sit down at the healing lodge” kind of close.','relieved'],[2,'Victory snacks. Mandatory. No objections.','playful'],[1,'Proud of you. I am coming for that badge next.','determined'],[0,'I will be cheering from the sidelines.','warm']];
+ else if((e.kind==='gym'||e.kind==='setback')&&e.text.includes('lost'))lines=[[1,`${t.name}, you okay?`,'concerned'],[0,'Honestly? I am mad. We trained for that.','frustrated'],[1,'You did. A loss does not erase the work.','serious'],[0,'I kept hoping one more attack would finish it.','serious'],[2,'Heal first. Figure out the matchup when your head is clear.','warm'],[0,'Okay. We rest, change the plan, and come back.','determined'],[1,'That is the trainer I know.','warm']];
+ else if(e.kind==='evolution')lines=[[1,'Hold on. Your partner looks DIFFERENT.','surprised'],[0,'Evolution! Same friend. Much bigger attitude.','excited'],[2,'And a bigger lunch bill, I suspect.','playful'],[0,'Already inspected the snack bag. Twice.','playful'],[1,'Watching a partner grow never gets old.','warm']];
+ else if(e.kind==='elite'&&e.text.includes('champion'))lines=[[1,`${t.name} IS THE CHAMPION!`,'excited'],[2,'From a starter at the lab to the top seat. That is wild.','excited'],[0,'I remember being nervous about my first route.','serious'],[1,'Now somebody is nervous about facing YOU.','playful'],[0,'Good. I will give them a battle worth training for.','determined'],[2,'A toast to the climb. And the next challenger.','warm']];
+ else if(e.kind==='arrival')lines=[[1,`Welcome, ${t.name}! Start at the lab.`,'warm'],[0,'Thanks. Is everyone always this confident?','nervous'],[1,'No. Some of us are very confidently lost.','playful'],[2,'The paths help. So does asking for directions.','warm'],[0,'Then I am already off to an excellent start.','relieved']];
+ else if(e.kind==='rival')lines=[[1,`Good battle, ${t.name}. That finish was tense.`,'excited'],[0,'I am going to be thinking about that last turn for a while.','focused'],[1,'Next time I am bringing a different plan.','determined'],[0,'Deal. Same respect, new tricks.','warm']];
+ else if(e.kind==='quest'&&e.text.includes('completed'))lines=[[1,`${t.name}, quest finished? Nice work!`,'excited'],[0,'Finally! Those battles actually meant something.','proud'],[2,'Go collect your reward before you spend it in your imagination.','playful'],[0,'Too late. My imagination already bought orbs.','playful']];
+ if(lines&&c.pending.length<38)conversation(s,people,lines,topic);
 }
-const jokes=[
- ['My Feral ate my route map.','At least one of you knows the route now.'],
- ['Why did the Gravahound cross the path?','Because somebody said “walkies.”'],
- ['I practiced my victory pose today.','Excellent. Now practice the victory part.'],
- ['My partner is carrying the team.','Does that include carrying your backpack?'],
- ['The grass moved. I am sure of it.','That is either a Feral or a very confident breeze.'],
- ['I packed enough snacks for six Ferals.','So you packed enough for one Gravahound?'],
- ['My binding orb missed. Again.','Have you considered throwing it toward the Feral?'],
- ['Do champions still have to buy their own lunch?','Become champion and report back. Important research.'],
- ['I am naming my next Feral “Tax Deduction.”','The supply shop is going to have questions.'],
- ['My team held a meeting without me.','Let me guess: more snacks, fewer battles?'],
- ['I found a shortcut!','If it goes through tall grass, that is an encounter with directions.'],
- ['I told my Feral to use strategy. It took a nap.','Resource conservation. Advanced strategy.'],
- ['I am undefeated in imaginary battles.','The imaginary Elite Four must be terrified.'],
- ['I brought a spare orb for good luck.','Bring five more for actual catching.'],
- ['Someone should open a Feral daycare.','The Gravahounds would call it a chew toy buffet.'],
- ['Training is going well. My legs are sore.','Your Feral knows it is supposed to do the battling, right?'],
- ['Today feels like a shiny day.','Every day feels like a shiny day until the grass says otherwise.'],
- ['My partner has mastered the dramatic entrance.','Now we just need to work on the graceful exit.']
+const chats=[
+ [[0,'My Feral tried to bury a binding orb.','confused'],[1,'For safekeeping?','curious'],[0,'For gardening, apparently. It watered the dirt afterward.','playful'],[2,'If an orb tree grows, I want shares.','playful'],[1,'Imagine picking fresh orbs instead of buying them.','excited'],[0,'The shopkeeper has asked us to stop discussing this.','playful']],
+ [[0,'I hate losing when I know we could have done better.','frustrated'],[1,'Same. What happened?','concerned'],[0,'I rushed. My partner was tired and I ignored it.','serious'],[1,'Then you learned something you can actually change.','serious'],[2,'That is worth more than pretending the loss was bad luck.','warm'],[0,'Next time, we rest first. No excuses.','determined']],
+ [[0,'Important question: does a shiny know it is shiny?','curious'],[1,'Mine would demand a better room if it did.','playful'],[2,'Yours already demands a better room.','playful'],[1,'That is called having standards.','proud'],[0,'I am putting “Feral housing negotiations” on my hard quest list.','playful'],[2,'Reward: one uninterrupted nap.','playful']],
+ [[0,'I keep comparing my team to everyone else.','serious'],[1,'You see their victories. You do not see every failed orb.','warm'],[0,'That is fair. Still hard to stop.','serious'],[2,'Compare your team to the team you had yesterday.','serious'],[1,'Your partners are not a leaderboard. They are your partners.','warm'],[0,'I needed to hear that. Thanks.','relieved']],
+ [[0,'My victory speech is ready.','proud'],[1,'How is the training coming along?','curious'],[0,'The speech has excellent pacing.','playful'],[2,'So that is a no.','playful'],[0,'I prefer “ongoing character development.”','playful'],[1,'Go develop that character in the grass.','playful']],
+ [[0,'I thought a rustling bush was a rare Feral.','excited'],[1,'Was it?','curious'],[0,'It was my own partner retrieving a sandwich.','frustrated'],[2,'Rare sandwich encounter. Epic rarity.','playful'],[1,'Did you catch it?','playful'],[0,'No. The sandwich was defeated instantly.','playful']],
+ [[0,'Anyone else get nervous before a gym challenge?','nervous'],[1,'Every single time.','serious'],[2,'Even when I know my team is ready.','serious'],[0,'I thought it was just me.','relieved'],[1,'It means you care. Take a breath and trust the preparation.','warm'],[2,'And heal first. Courage is not a substitute for HP.','playful']],
+ [[0,'I am announcing my retirement from missing orb throws.','frustrated'],[1,'Congratulations on your new career.','playful'],[0,'First shift starts after I stop missing orb throws.','playful'],[2,'We look forward to the announcement next week.','playful'],[0,'The lack of faith in this chat is outrageous.','playful'],[1,'We believe in you. We just also believe in gravity.','playful']],
+ [[0,'Someday I want to sit in the champion seat.','determined'],[1,'What will you do when you get there?','curious'],[0,'Give challengers the battle I always wanted.','serious'],[2,'That is a better answer than “buy a giant hat.”','warm'],[0,'I can do both.','playful'],[1,'Now that is ambition.','playful']],
+ [[0,'Today was rough. I am not going to pretend otherwise.','serious'],[1,'Want advice, or just company?','warm'],[0,'Company, I think.','serious'],[1,'Then we are here.','warm'],[2,'We can sit outside the healing lodge. No speeches required.','warm'],[0,'That sounds pretty good.','relieved']],
+ [[0,'My partner sneezed directly into my quest notes.','frustrated'],[1,'Field research is a messy business.','playful'],[0,'The notes now say “defeat three splodges.”','playful'],[2,'Hard quest. Very elusive species.','playful'],[1,'I have only ever encountered splodges near lunch.','playful'],[0,'You two are not helping. Please continue.','playful']],
+ [[0,'Who keeps naming the paths “the shortcut”?','confused'],[1,'Why?','curious'],[0,'I followed one and found three battles and a hill.','frustrated'],[2,'It was a shortcut to personal growth.','playful'],[0,'I wanted the supply shop.','frustrated'],[1,'Personal growth does not stock binding orbs, unfortunately.','playful']]
 ];
-export function chatTick(s){if(!s.chat)ensureChat(s);let c=s.chat;
- for(let p of c.pending.filter(p=>p.at<=s.time)){let t=s.trainers.find(t=>t.id===p.trainerId);if(t)post(s,t.name,p.text,'banter',t.id);}c.pending=c.pending.filter(p=>p.at>s.time);
- if(s.time<c.next)return;c.next=s.time+45+rng(c)*30;
- let available=s.trainers.filter(t=>!['battle','starter'].includes(t.state));if(!available.length)return;let t=pick(c,available),other=pick(c,available.filter(v=>v.id!==t.id)),pair=pick(c,jokes);
- // Ground some conversations in the speaker's actual team and current ambitions.
- if(rng(c)<.45){let f=t.team?.[0],goal=t.mindset,area=s.areas?.find(a=>a.open);if(t.job)pair=[`Working on “${t.job.title}”. The reward is $${t.job.reward}.`,'Good luck! Those orbs will not buy themselves.'];else if(t.state==='heal')pair=['Healing break. My team has earned it.','A fresh team beats a rushed team.'];else if(t.state==='shop')pair=['Restocking orbs. My wallet noticed.','An orb in the bag is better than a Feral that got away.'];else if(goal==='collect')pair=[`Still working on my collection${area?' around '+area.name:''}.`,'One new species at a time. You will get there.'];else if(goal==='money')pair=['A little training, a little gold. That is the plan.','Remember to budget for healing and orbs.'];else if(goal==='best')pair=[`Training for my next badge. I have ${t.badges.length} so far.`,'The League is a long road. Keep at it.'];else if(f)pair=[`${f.species} and I are training together. Level ${f.level} and counting!`,'That partnership is going places.'];}
- post(s,t.name,pair[0],'banter',t.id);if(other)reply(s,other,pair[1]);
+export function chatTick(s){if(!s.chat)ensureChat(s);let c=s.chat;let due=c.pending.filter(p=>p.at<=s.time).sort((a,b)=>a.at-b.at);for(let p of due){let t=s.trainers.find(t=>t.id===p.trainerId);if(t)post(s,t.name,p.text,'banter',t.id,null,p.mood||'chatty',p.thread);}c.pending=c.pending.filter(p=>p.at>s.time);
+ if(s.time<c.next)return;c.next=s.time+16+rng(c)*14;
+ let available=s.trainers.filter(t=>t.team?.length);if(available.length<2||c.pending.length>34)return;let t=pick(c,available),friend=pick(c,available.filter(v=>v.id!==t.id)),third=pick(c,available.filter(v=>![t.id,friend.id].includes(v.id)))||t,people=[t,friend,third],choices=chats.map((v,i)=>i).filter(i=>!(c.recentTopics||[]).includes('chat-'+i)),i=pick(c,choices.length?choices:chats.map((v,i)=>i)),lines=chats[i].map(v=>[...v]);
+ if(rng(c)<.3){let f=t.team[0],q=Object.values(t.quests||{}).find(q=>q&&q.progress<q.need);lines=q?[[0,`I am working on “${q.title}”. ${q.progress}/${q.need} so far.`,'focused'],[1,'Does it feel like progress or like homework today?','curious'],[0,'A bit of both, honestly. The reward will help.','serious'],[2,'One battle at a time. You do not have to finish everything today.','warm'],[1,'And tell us when you finish. We celebrate completed quests here.','excited']]:[[0,`${f.species} and I reached level ${f.level}. I am proud of this team.`,'proud'],[1,`You and ${f.species} make a good pair.`,'warm'],[0,'We still have plenty to learn.','serious'],[2,'That is the fun part. There is always a next step.','warm'],[1,'Next step: snacks, then training. In that order.','playful']];}
+ conversation(s,people,lines,'chat-'+i);
 }
 export function chatUnread(s){return Math.min(99,s.chat.messages.filter(m=>m.seq>(s.settings.chatRead||0)).length);}

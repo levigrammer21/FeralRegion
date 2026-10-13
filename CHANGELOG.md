@@ -1,3 +1,12 @@
+## v1.8.0 — Three-tier quests, lively chat, and compact UI
+
+- Combined region menu, treasury, population, clock, account, and device-save status into one responsive header bar. The floating save badge is removed.
+- Route flags and labels now draw before trainers, residents, and battle scenes, so moving people and battles remain visible above signs.
+- Replaced deliveries and timed odd jobs with one easy, one medium, and one hard active quest per trainer. All three progress concurrently; completions pay once at the lab and refill the completed slots.
+- Easy: encounter 5 wild Ferals or defeat 3 ($35). Medium: defeat 5 in each of two named accessible zones ($125); with one zone, defeat 12 ($110). Hard: encounter a shiny ($300) or finish 100 wild battles ($350). No quest expiry; shinies do not need to be caught. Circuit AI visits the zone still needing wins.
+- Existing research/training progress migrates. Removed deliveries release their trainer; all remaining sponsored-job rewards refund to your treasury once. Existing trainer earnings, battle prizes, gym rematches, tournaments, and region saves remain.
+- Added extended conversations with 4–7 exchanges, up to three speakers, moods, supportive discussions, teasing, frustration, celebration, and event-specific reactions. Conversation starts are more frequent; history holds 240 messages. Queued replies persist, preserve their order, and use separate randomness. Shiny sightings and wild losses now announce themselves in chat.
+
 ## v1.7.0 — Trainer jobs and income
 
 - Starter lab quest board: field surveys ($28 for 3 encounters), training studies ($34 for 3 wild wins), supply deliveries ($20), and lab work ($22 for 45 game-seconds). One active quest; trainers physically visit destinations and return to the lab for payment.

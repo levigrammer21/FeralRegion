@@ -1,9 +1,9 @@
 {
   "name": "feral-regions",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "type": "module",
   "scripts": {
-    "test": "node tests.mjs && node auth-tests.mjs && node living-tests.mjs && node storage-tests.mjs && node collection-tests.mjs && node tournament-tests.mjs && node install-tests.mjs && node chat-tests.mjs && node job-tests.mjs"
+    "test": "node tests.mjs && node auth-tests.mjs && node living-tests.mjs && node storage-tests.mjs && node collection-tests.mjs && node tournament-tests.mjs && node install-tests.mjs && node chat-tests.mjs && node job-tests.mjs && node presentation-tests.mjs"
   },
   "private": true
 }
