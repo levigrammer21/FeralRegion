@@ -1,3 +1,29 @@
+# Validation — Feral Regions 2.1.0
+
+`npm test`: all 14 suites pass, including the 26 original base checks and 13 new upgrade regression checks.
+
+Additional interface verification used the actual app functions with a local DOM harness and native Canvas at 390×844 and 1024×1366. Verified warning overlays, approved sale confirmation, sanctuary exhibit assignment, rivalry panel, unchanged reserve DOM on wallet updates, and 4× frames. A 216-Feral trainer collection was used. Inspected native Canvas output visually.
+
+No browser executable was available, so this does not certify real CSS layout, browser pointer behavior, or physical-device touch behavior. Firebase tests remain local mocks; no remote account writes were made.
+
+Performance probe: first reachable-area query on a 1,000-tile area took approximately 6.7 ms versus approximately 257 ms before this update in this environment. Cached queries averaged approximately 0.001 ms. These are local Node measurements, not device FPS claims.
+
+New coverage includes:
+
+- No in-battle tonic consumption, equal post-battle recovery and idempotent battle completion.
+- Pending level-cap evolution and duplicate-species restrictions.
+- Future-footprint placement validation and invalidation of connected components after terrain changes.
+- Rejection of invalid imported speeds and migration of existing regions.
+- Approved business sales and stale/insufficient-funds offer rejection.
+- Money conservation across treasury, wallets, business balances, supplies, upgrades, taxes, dividends and buybacks.
+- Paused insolvent businesses and prevention of debt erasure in buyback.
+- Reserve exhibitions, duplicate display prevention, ticket income, save persistence and removal on active-team promotion.
+- Persisted rivalry results and crowd-interest calculations.
+- Operating vs. total treasury profit.
+- Deterministic mixed-system save/resume.
+
+## Prior verification record
+
 # Validation — Feral Regions 1.4.0
 
 ## Automated checks

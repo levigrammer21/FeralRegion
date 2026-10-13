@@ -1,5 +1,6 @@
+import {initialized} from './system-init.js';
 import {trackIncome} from './insights.js';
-import {door,navPath,habitatSpots} from './world.js';
+import {door,navPath,habitatSpots,reachableAreaIds,connected} from './world.js';
 import {trainerGoal} from './collection.js';
 export const QUEST_TIERS=['easy','medium','hard'];
 export const QUESTS={
@@ -11,14 +12,15 @@ export const QUESTS={
  battle100:{tier:'hard',title:'Seasoned explorer: battle 100 wild Ferals',event:'battle',need:100,reward:350}
 };
 export function ensureJobs(s){
+ if(s.questVersion===2&&initialized(s,'jobs'))return;
  if(s.questVersion!==2){let refund=(s.jobs||[]).reduce((n,j)=>n+(Number.isFinite(j.reward)?j.reward:0),0);if(refund){s.cash+=refund;s.stats.revenue+=refund;s.daily.revenue+=refund;s.questMigrationRefund=refund;}s.jobs=[];s.questVersion=2;
   for(let t of s.trainers){let old=t.job;t.quests??={easy:null,medium:null,hard:null};if(old&&!old.sponsor&&['research','training'].includes(old.type)){let code=old.type==='research'?'encounter5':'defeat3';t.quests.easy={...QUESTS[code],code,progress:Math.min(old.progress||0,QUESTS[code].need),zones:[],zoneWins:[]};}delete t.job;if(['jobtask'].includes(t.state)||t.goal?.state==='jobtask'){t.state='idle';t.goal=null;t.route=null;t.wait=0;}t.nextJob=s.time;}
  }
  s.rivalPrizes??=[];for(let t of s.trainers){t.quests??={easy:null,medium:null,hard:null};t.questCounts??={easy:0,medium:0,hard:0};t.nextJob??=0;t.jobsDone??=0;t.jobEarnings??=0;t.earnings??=[];t.gymRematchAt??=0;}
 }
 export function creditTrainer(s,t,n,source,journal){if(!Number.isFinite(n)||n<=0)return;t.money+=n;trackIncome(s,t,n);t.earnings??=[];t.earnings.unshift({time:s.time,amount:n,source});t.earnings=t.earnings.slice(0,8);if(journal)journal(s,`${t.name} earned $${n}: ${source}.`,'income',t.id);}
-function labFor(s,t){return s.buildings.find(b=>b.type==='lab'&&navPath(s,t,door(b)));}
-export function questZones(s,t){let ids=new Set(habitatSpots(s).filter(p=>{let a=s.areas.find(a=>a.id===p.areaId);return a?.open&&a.requiredBadges<=t.badges.length&&a.min<=Math.max(1,...t.team.map(f=>f.level))+3&&navPath(s,t,p);}).map(p=>p.areaId));return s.areas.filter(a=>ids.has(a.id));}
+function labFor(s,t){return s.buildings.find(b=>b.type==='lab'&&connected(s,t,door(b)));}
+export function questZones(s,t){let ids=reachableAreaIds(s,t),level=Math.max(1,...t.team.map(f=>f.level))+3;return s.areas.filter(a=>ids.has(a.id)&&a.open&&a.requiredBadges<=t.badges.length&&a.min<=level);}
 export function acceptJob(s,t,h){ensureJobs(s);if(!labFor(s,t))return;let zones=questZones(s,t),goal=trainerGoal(t);for(let tier of QUEST_TIERS){if(t.quests[tier])continue;let count=t.questCounts[tier],code=tier==='easy'?(t.money<45||goal==='collect'||count%2===0?'encounter5':'defeat3'):tier==='medium'?(zones.length>=2?'twoZones':'defeat12'):(count%2===0?'shiny':'battle100');let q={...QUESTS[code],code,progress:0,zones:code==='twoZones'?[zones[count%zones.length].id,zones[(count+1)%zones.length].id]:[],zoneWins:code==='twoZones'?[0,0]:[]};t.quests[tier]=q;h.journal(s,`${t.name} accepted an ${tier} quest: ${q.title} · $${q.reward}.`,'quest',t.id);}t.nextJob=s.time+120;}
 export function jobDecision(s,t,h){ensureJobs(s);let lab=labFor(s,t);if(!lab)return false;let completed=QUEST_TIERS.some(k=>t.quests[k]?.progress>=t.quests[k]?.need);if(completed){h.goBuilding(s,t,lab,'jobclaim');t.intent='Returning to the lab for completed quest rewards';return true;}if(QUEST_TIERS.some(k=>!t.quests[k])&&s.time>=t.nextJob){h.goBuilding(s,t,lab,'jobdesk');t.intent='Picking up easy, medium, and hard quests';return true;}return false;}
 export function jobArrive(s,t,state){if(!['jobdesk','jobclaim'].includes(state))return false;t.state=state;t.wait=3;t.intent=state==='jobclaim'?'Collecting quest rewards':'Choosing three quest goals';return true;}

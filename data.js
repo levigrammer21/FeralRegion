@@ -1,5 +1,5 @@
 import {EXTRA_ROWS} from './roster.js';
-export const VERSION='2.0.1';
+export const VERSION='2.1.0';
 export const TYPES={Nature:{color:'#82bc59',strong:['Water','Stone'],weak:['Fire','Ice']},Fire:{color:'#ef9160',strong:['Nature','Ice'],weak:['Water','Stone']},Water:{color:'#68bed5',strong:['Fire','Stone'],weak:['Nature','Storm']},Stone:{color:'#baa786',strong:['Fire','Storm'],weak:['Water','Nature']},Storm:{color:'#f4d870',strong:['Water','Air'],weak:['Stone']},Ice:{color:'#b4e4ef',strong:['Nature','Air'],weak:['Fire']},Shadow:{color:'#ad93d0',strong:['Arcane'],weak:['Radiant']},Radiant:{color:'#ffdd9a',strong:['Shadow'],weak:['Arcane']},Arcane:{color:'#d992cc',strong:['Radiant'],weak:['Shadow']},Air:{color:'#b9d5ad',strong:['Nature'],weak:['Storm','Ice']}};
 // name, type, silhouette, color, accent, habitat, rarity, evolution, evolution level, temperament
 const rows=[
@@ -77,3 +77,5 @@ Object.assign(BUILDINGS,{arena:{name:'Tournament arena',cost:1400,color:'#8c729f
 Object.assign(BUILDINGS,{house:{name:'Trainer house',cost:600,color:'#799681',width:3,height:3,fee:0,upkeep:0}});
 
 Object.assign(BUILDINGS,{duel:{name:'Duel court',cost:950,color:'#a47d69',width:4,height:3,fee:2,upkeep:4}});
+
+Object.assign(BUILDINGS,{sanctuary:{name:'Feral sanctuary',cost:1000,color:'#709f82',width:5,height:4,fee:4,upkeep:5}});

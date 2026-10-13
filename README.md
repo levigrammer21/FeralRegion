@@ -2,9 +2,20 @@
 
 **Build a world. Watch a legend.**
 
-Version 1.4.0 · static GitHub Pages project · all files at repository root
+Version 2.1.0 · static GitHub Pages project · all files at repository root
 
 Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, controls, and gameplay.
+
+## New in 2.1.0
+
+- Live region problem inspector and toggleable map warnings.
+- Player-approved trainer business purchases, separate operating balances, owner-funded costs/upgrades, profit taxes, dividends and buybacks.
+- Rivalry records, rematch preference and spectator interest.
+- Reserve-Feral sanctuary exhibitions with rare/shiny appeal and ticket income.
+- Post-battle-only tonics, safer placement/imports, pending level-cap evolution and faster region decisions.
+- Stable reserve panels and separate operating-profit reporting.
+
+See START_HERE.md for controls and accounting rules. All source files remain directly at the repository root.
 
 ## Included
 

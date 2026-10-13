@@ -1,3 +1,17 @@
+## v2.1.0 — Region management, trainer businesses and exhibitions
+
+- Fixed capture action ordering and removed all in-battle tonic consumption. Both trainers can recover with tonics after ordinary fights; tournament copies and already-healed Elite teams do not consume them.
+- Pending evolution checks now also work at level 75, respecting existing collection duplicate restrictions.
+- Placement checks include the new/moved building footprint and preserve previously connected entrances. Imported speeds and key game settings are validated.
+- Connected-component navigation replaces per-tile quest pathfinding. Cached habitat groups, species candidates, and tile-area membership reduce repeated decision work. Runtime initialization uses weak stamps; offscreen buildings are culled.
+- Trainer panels refresh smaller changing sections and retain large unchanged reserve lists. Operating profits exclude capital transactions and grants.
+- Added live problems inspector, map warning toggle, Locate and Inspect controls.
+- Added approved offers for shops, healing lodges and cafés. Owners supply an operating reserve and pay costs; the region receives purchase proceeds and profit tax. Includes owner-funded upgrades, deficit funding, dividends, buybacks and demolition protection.
+- Saved head-to-head records now drive rivalry cards, close-level rematch preferences and crowd interest at duels/tournaments.
+- Added sanctuary building and eight reserve-Feral exhibition slots, shiny/rare appeal, visible exhibits and visitors, ticket income and active-team removal.
+- Existing regions migrate without resetting. Updated versioned offline shell includes all new modules.
+- All 14 test suites pass. Added 13 regression checks for combat, imports, connectivity, accounting, exhibits, rivalry records and deterministic resume. Interface logic/Canvas checked at phone and tablet sizes; complete browser/touch QA remains a device check.
+
 ## v2.0.1 — Build menu scrolling fix
 
 - Horizontal swipes on building / decoration cards now browse the tool row. The menu no longer captures every touch as a placement drag or resets the row on native scroll cancellation.
