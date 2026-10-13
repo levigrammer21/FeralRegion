@@ -1,3 +1,13 @@
+## v2.3.0 — Colosseum and Elite Four stadium
+
+- Native pixel-art tournament colosseum (10×8) with tiered Roman arches, banners, entry gate and a full battle court; 32 built-in spectator seats.
+- Grand Elite Four stadium (12×10) with four raised ranked thrones, champion crown, central staircase, torches, gold cornices, marked court and 48 built-in spectator seats.
+- Saved five-second defender entrances and four-second returns; existing full outside runs and fixed-until-defeated seats retained. Trainer selection/follow cameras track the visible venue positions.
+- Tournament and Elite fights now appear inside their courts, with venue-specific live battle backdrops. Full-stadium camera controls fit phone/tablet views.
+- Built-in tournament crowds and a saved Elite crowd with separate $0–15 spectator tickets. Nearby external stands extend all three sports venue types without duplicating drawn spectators.
+- Safe legacy footprint migration preserves entrance/IDs/records; crowded or active venues retain compact art until moved and expanded. No demolition or region reset.
+- Updated offline shell and 11 dedicated venue regression checks alongside the existing 15 suites.
+
 ## v2.2.0 — Every trainer pursues Champion
 
 - Universal badge/Champion ambition; preserved mindset fields now express secondary collection, money, or reputation preferences.

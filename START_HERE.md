@@ -1,8 +1,18 @@
-# Feral Regions v2.2.0 — Champion ambition AI
+# Feral Regions v2.3.0 — Grand battle venues
 
-This ZIP contains the complete game in one enclosing folder. Upload the files inside that folder directly to the root of your existing GitHub repository, replacing matches. Include trainer-ai.js and combat-ai.js. Do not upload the enclosing folder as a repository subfolder.
+This ZIP contains the complete game in one enclosing folder. Upload the files inside that folder directly to the root of your existing GitHub repository, replacing matches. Include the new venues.js and venue-art.js modules, along with all existing files. Do not upload the enclosing folder as a repository subfolder.
 
 Your existing region, trainers, teams, collections, businesses, houses and tournaments migrate without a reset. Export a JSON backup from Account before updating. After Pages publishes, open the installed app online and use Account → Save & load the app update when offered.
+
+## The new battle venues
+
+- Tournament colosseum: **10 × 8 tiles**, tiered arches, banners and a full marked battle court, with **32 built-in spectator seats**.
+- Elite Four stadium: **12 × 10 tiles**, four raised colored thrones, champion crown, gold trim, torches, a central staircase and court, with **48 built-in spectator seats**.
+- Each defending Elite member walks down from their own throne before their battle. Afterward, returning members walk to the seat they earned. An outside run still starts at #4 and continues as far as possible; ranks remain fixed until defeated, and completed runs still have the five-game-day cooldown.
+- Spectators fill built-in seating during events. External stands add eight seats and serve the nearest colosseum, duel court or Elite stadium within 14 tiles. Elite spectator tickets default to $3 and can be set to $0–15 in the building inspector; challenger entry fees remain separate.
+- Select a venue and choose **View full stadium**. Battle → **View on map** also frames the whole venue. The live battle panel uses a matching stadium backdrop.
+
+Old 5 × 4 venues keep their IDs, event records and entrance location. On load, an old venue expands only when the larger footprint is safe: no occupied buildings, catching-area cells, water, unavailable land, blocked entrances or disconnected routes. Active events keep their current geometry. If expansion would crowd your town, the venue keeps a compact version with 16 built-in seats; select **Move & expand · $80** and place it in a larger open spot. You do not need to reset your region.
 
 ## The new trainer logic
 

@@ -2,9 +2,17 @@
 
 **Build a world. Watch a legend.**
 
-Version 2.2.0 · static GitHub Pages project · all files at repository root
+Version 2.3.0 · static GitHub Pages project · all files at repository root
 
 Start with **START_HERE.md** for phone-friendly publishing, Firebase setup, controls, and gameplay.
+
+## New in 2.3.0
+
+A 10×8 tournament colosseum with tiered stone arches, banners, a full marked battle court and 32 built-in spectator seats. The 12×10 Elite Four stadium has four raised ranked thrones, a central staircase, gold trim, torches, a full court and 48 built-in seats.
+
+Defenders descend before each ranked match and return to their earned seat afterward. Both venues show trainers and Ferals on the court; live battle views use stadium backdrops. Spectators fill the seating, and additional stands expand capacity. Elite spectator pricing is separate from the challenger entry fee.
+
+Existing compact venues expand only when surrounding space and routes permit; otherwise they keep a compact rendering and can be moved and expanded without losing their records. Use the building's **View full stadium** control to frame the whole venue.
 
 ## New in 2.2.0
 
@@ -12,7 +20,7 @@ Every trainer pursues Champion. Collecting, money and reputation support progres
 
 Elite Four seats are fixed until an outside defeat; no internal challenges. A full outside run starts at #4 and continues as far as possible, followed by a five-game-day cooldown. Earned gyms have independent seven-game-day rematch timers and win-only money prizes without duplicate badges.
 
-`npm test` runs all 15 suites; `npm run test:stress` exercises 54 trainers across 180 simulated days. See START_HERE.md for rules, migration and controls.
+`npm test` runs all 16 suites; `npm run test:stress` exercises 54 trainers across 180 simulated days. See START_HERE.md for rules, migration and controls.
 
 ## New in 2.1.0
 

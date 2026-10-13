@@ -1,3 +1,15 @@
+# Validation — Feral Regions 2.3.0
+
+All 16 automated suites pass, including 11 dedicated stadium checks and all previous ambition, tournament, rematch and save regressions. Venue tests cover built-in/external seating capacity, safe footprint growth with unchanged doors and records, compact fallback beside buildings/catching areas/water, active legacy runs, five-second entrances, save/reload during entrances and returns, exactly-one fight/entry charge, loss/continuous-climb outcomes, spectator accounting and phone/tablet camera bounds.
+
+Native Canvas output was visually inspected with all four members seated, a defender descending, an active Elite match, and the detailed stadium battle view. The actual app functions were exercised through a DOM/Canvas harness at 390×844 and 1024×1366: stadium inspector, independent spectator fee, full-venue camera, selection of a seated trainer, and existing businesses, sanctuary, rivalries and 4× simulation frames.
+
+The 54-trainer, 180-day natural simulation was rerun with the new stadium entrances. All stress invariants passed: fixed-until-defeated seats, outside-only runs, five-day run intervals, seven-day per-gym rematches, one ranked match at a time and valid saves. There were 113 outside runs, four filled Elite seats, 24 trainers with eight badges, and a minimum of six badges. These results reflect the configured test region, not guaranteed pacing for every player layout.
+
+The offline shell includes both new venue modules. No browser executable was available; DOM/native Canvas checks do not certify real browser CSS, device touch behavior or installation. Firebase and live deployment were not exercised.
+
+## Prior verification record
+
 # Validation — Feral Regions 2.2.0
 
 All 15 automated suites pass. This includes the 26 base checks, 13 prior upgrade checks and 30 new ambition/rematch checks. The new tests cover primary-goal precedence, varied risk, stronger-zone choice, blocked/gated habitats, commitment and loss memory, manual parties, healing-loop prevention, shop budgets, bounded duel waits, eight-badge Elite entry, fixed incumbent seats, single full climbing runs, exact five-day boundaries, saved cooldowns and seven-day per-gym win/loss schedules/payouts.
