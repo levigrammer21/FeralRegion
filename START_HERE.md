@@ -1,19 +1,17 @@
-# Feral Regions v1.8.0 — changed files
+# Feral Regions v1.9.0 — changed files
 
-Upload the enclosed files directly into your existing FeralRegion repository root, replacing matching files. The enclosing folder keeps extraction tidy; do not upload it as a subfolder.
+Upload all enclosed files directly to your existing FeralRegion repository root, replacing matches. Three new runtime files are required: housing.js, insights.js, and region-stats-ui.js. Do not upload the enclosing folder as a subfolder.
 
-After GitHub Pages publishes, open the installed app online. Account → Save & load the app update applies the new offline release when offered. If needed, close and reopen once. No reinstall or save reset is required.
+After Pages publishes, open the installed app online. Account → Save & load the app update applies the new release when offered. Close and reopen if needed. No reinstall or reset is required; existing regions migrate automatically.
 
-The unified top bar now contains the menu, money, trainers, clock, device-save status, and account. Trainers and battle scenes appear above route flags / labels.
+Build → Buildings → Trainer house. Build costs $600. Trainers automatically buy reachable vacant houses when they can pay the sale price plus retain $40. Default sale price $120; change it in the house panel. House purchases and property tax go to your treasury; maintenance and upgrades consume trainer gold.
 
-Tap the starter lab for the revised quest board. Each trainer can carry one easy, one medium, and one hard quest simultaneously. They collect and turn in objectives automatically. Tap a trainer to see all three cards, per-zone progress, and rewards. Replacing a quest discards only that tier's progress and sends the trainer to the lab for a replacement.
+Tap a house to gift it to a trainer, change price/tax/color, buy upgrades using its owner's wallet, or evict. Ownership lasts until you evict; no autonomous selling or moving. You must evict before demolishing an owned house. Eviction does not remove the trainer's creatures, inventory, gold or achievements. The evicted trainer waits two game-minutes before trying to buy again.
 
-Easy: encounter 5 wild Ferals or defeat 3 ($35).
-Medium: defeat 5 in EACH of 2 named zones ($125), or defeat 12 when only one zone is available ($110).
-Hard: encounter a shiny ($300) or finish 100 wild battles ($350). No expiry; a shiny encounter counts even if it escapes. Capturing counts as a finished battle but not as a defeat.
+Default daily bills: $2 upkeep + $4 property tax. Beds, a yard, and decorations increase maintenance modestly. Tax arrears cap at $60 and never cause automatic eviction. Rest at home restores team health free in 32 game-seconds; beds reduce that to 26 / 20. The healing lodge remains much faster. The training yard grants each active Feral 10 XP once per game-day at a home visit. Upgrades cost $80 per bed level, $120 for a yard, and $40 for decorations, paid from the owner’s wallet.
 
-The old deliveries / odd jobs are retired. Existing research/training progress is retained in the easy slot where possible. All outstanding sponsored rewards return to your treasury once. Ordinary quests use an outside fund.
+Feral Regions menu → Leaderboards or Record book. Tap a trainer for a career card and their quests, home, income, strongest partner, rivals, and achievements. Gym panels include performance statistics. Tap a species in Feral-dex for sightings, capture attempts/catches, shiny counts, owners, and routes.
 
-World chat now has longer exchanges, emotions, jokes, encouragement, rival banter, and reactions to real catches, sightings, defeats, badges, evolutions and champions. It keeps 240 messages and stays fully minimizable. Scheduled replies persist across saves and pause with the world.
+New statistics show when tracking began. Existing saved wallets, wins, badges, titles, and collections are available immediately, but new sighting/income/streak/gym counters begin at the migration day. In-flight battles from before the migration do not fabricate new challenge results. Data is local to your region and follows your save.
 
-Validation: automated gameplay, save migration, refund/payout safety, three simultaneous tiers, named-zone progress, shiny encounters, 100-battle objectives, extended saved conversations, header structure, and native Canvas drawing order passed. The native phone header layout remains a device check.
+Validation: full automated suite passed, including permanent ownership, autonomous purchases, gifting, eviction, tax caps, free healing, daily training limits, save compatibility, capture/gym counters, standings, and record migration. Native phone layout still needs device verification.

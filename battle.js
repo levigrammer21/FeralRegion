@@ -1,3 +1,4 @@
+import {captureAttempt} from './insights.js';
 import {wantsCatch} from './collection.js';
 import {SPECIES,MOVES,TYPES,defaultMoves,effectiveness,clamp} from './data.js';
 export function random(s){s.seed=(Math.imul(s.seed,1664525)+1013904223)>>>0;return s.seed/4294967296;}
@@ -14,7 +15,7 @@ function log(b,text){b.log.unshift(text);b.log=b.log.slice(0,14);}
 function conclude(b,winner){b.done=true;b.winner=winner;b.timer=3;log(b,winner==='capture'?`${b.a.name} made a catch!`:`${b[winner].name} wins!`);}
 export function battleTick(s,b,dt){if(b.done)return;b.elapsed+=dt;b.timer-=dt;if(b.timer>0)return;b.timer=1.8;let af=active(b,'a'),bf=active(b,'b');if(!af||!bf){conclude(b,!af?'b':'a');return;}
  const trainer=s.trainers.find(t=>t.id===b.a.id);
- if(b.turn%2===0&&trainer&&b.type==='wild'&&trainer.orbs>0&&b.catchTries<1&&bf.hp/stats(bf).hp<.4&&wantsCatch(trainer,bf)){trainer.orbs--;b.catchTries++;let rarity=SPECIES[bf.species].rarity,skill=Math.max(...trainer.team.map(f=>f.level)),chance=clamp(.14+(1-bf.hp/stats(bf).hp)*.1-rarity*.026+clamp((skill-bf.level)*.003,-.06,.03)+(bf.status?.02:0),.025,.22);b.last={side:'a',kind:'capture',type:'Arcane',at:b.elapsed,text:'Binding orb'};if(random(s)<chance){b.captured=structuredClone(bf);conclude(b,'capture');return;}log(b,`${bf.species} broke free. No second orb this encounter.`);b.turn++;return;}
+ if(b.turn%2===0&&trainer&&b.type==='wild'&&trainer.orbs>0&&b.catchTries<1&&bf.hp/stats(bf).hp<.4&&wantsCatch(trainer,bf)){trainer.orbs--;b.catchTries++;captureAttempt(s,bf);let rarity=SPECIES[bf.species].rarity,skill=Math.max(...trainer.team.map(f=>f.level)),chance=clamp(.14+(1-bf.hp/stats(bf).hp)*.1-rarity*.026+clamp((skill-bf.level)*.003,-.06,.03)+(bf.status?.02:0),.025,.22);b.last={side:'a',kind:'capture',type:'Arcane',at:b.elapsed,text:'Binding orb'};if(random(s)<chance){b.captured=structuredClone(bf);conclude(b,'capture');return;}captureAttempt(s,bf,true);log(b,`${bf.species} broke free. No second orb this encounter.`);b.turn++;return;}
  if(b.type!=='tournament'&&b.turn%2===0&&trainer&&trainer.potions>0&&b.potions<2&&af.hp/stats(af).hp<.25){trainer.potions--;b.potions++;af.hp=Math.min(stats(af).hp,af.hp+stats(af).hp*.5);log(b,`${trainer.name} used a tonic.`);b.last={side:'a',kind:'heal',type:'Nature',at:b.elapsed,text:'Tonic'};b.turn++;return;}
  if(b.turn%2===0){b.first=stats(af).speed>=stats(bf).speed?'a':'b';b.round++;}
  let side=b.turn%2===0?b.first:b.first==='a'?'b':'a',other=side==='a'?'b':'a',f=active(b,side),enemy=active(b,other);b.used[side].push(f.id);b.used[side]=[...new Set(b.used[side])];

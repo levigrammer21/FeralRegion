@@ -33,6 +33,7 @@ export function chatEvent(s,e){if(!s.chat)ensureChat(s);let t=s.trainers.find(t=
  else if(e.kind==='arrival')lines=[[1,`Welcome, ${t.name}! Start at the lab.`,'warm'],[0,'Thanks. Is everyone always this confident?','nervous'],[1,'No. Some of us are very confidently lost.','playful'],[2,'The paths help. So does asking for directions.','warm'],[0,'Then I am already off to an excellent start.','relieved']];
  else if(e.kind==='rival')lines=[[1,`Good battle, ${t.name}. That finish was tense.`,'excited'],[0,'I am going to be thinking about that last turn for a while.','focused'],[1,'Next time I am bringing a different plan.','determined'],[0,'Deal. Same respect, new tricks.','warm']];
  else if(e.kind==='quest'&&e.text.includes('completed'))lines=[[1,`${t.name}, quest finished? Nice work!`,'excited'],[0,'Finally! Those battles actually meant something.','proud'],[2,'Go collect your reward before you spend it in your imagination.','playful'],[0,'Too late. My imagination already bought orbs.','playful']];
+ if(e.kind==='home'&&e.text.includes('place to call home'))lines=[[1,`${t.name}, you got a HOUSE?!`,'excited'],[0,'A real front door. A place for my team to recover. I am so happy.','excited'],[2,'First house rule: no chewing the furniture.','playful'],[0,'My Feral has requested negotiations on that rule.','playful'],[1,'Congratulations. That is a big step.','warm']];
  if(lines&&c.pending.length<38)conversation(s,people,lines,topic);
 }
 const chats=[

@@ -1,3 +1,15 @@
+## v1.9.0 — Homes, leaderboards, careers, and region statistics
+
+- Build trainer houses ($600, 3×3). Vacant homes sell automatically to reachable trainers who can afford the configured purchase price plus $40 in reserve. Default price $120; proceeds go to your treasury. You can gift vacant houses to trainers for free.
+- One permanent home per trainer. No selling or automatic moving. Only your eviction releases ownership; owned houses cannot be demolished first. Eviction preserves Ferals, inventory, wallet, achievements, and career totals.
+- Daily upkeep is paid from the owner's wallet to outside maintenance. Property tax goes to your treasury. Tax arrears cap at $60 and never automatically evict a trainer. Vacant houses have no daily expense.
+- Owners physically return home for free team recovery: 32 seconds, improved to 26/20 by beds. A paid training yard grants 10 XP per active Feral once each game-day during a visit. Paid decorations show their lead/favorite Feral outside; tournament trophies and champion honors decorate homes. Colors are configurable.
+- Region menu: 25 sortable trainer leaderboards spanning League rank, badges, wins/rates/streaks, collections/shinies/captures, team levels, gold/wealth/income/property, quests by tier, tournaments, gym wins, taxes and home visits. Tied scores share ranks; tap a trainer for their profile.
+- Career cards show home, achievements, strongest partner, streaks, tracked earnings, and frequent rivals. Region record book preserves first sightings/catches, homeowners, champions, tournament champions, richest wallets and winning streaks with trainer/day; current toughest-gym and wealth standings also appear.
+- Gym statistics: challenges, unique challengers, leader wins/losses, defense rate/streaks, badges, rematches, actual fees, unfinished matches, and recent results.
+- Species details: normal/shiny sightings and catches, attempted/failed orbs, actual current ownership, shiny owners, and configured routes. Starters/evolutions never inflate wild sightings or captures.
+- New counters are explicitly tracked from the update day; old totals are not fabricated. Existing saves, quests, chat, tournaments, and install support remain compatible.
+
 ## v1.8.0 — Three-tier quests, lively chat, and compact UI
 
 - Combined region menu, treasury, population, clock, account, and device-save status into one responsive header bar. The floating save badge is removed.
