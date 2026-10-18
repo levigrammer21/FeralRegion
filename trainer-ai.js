@@ -55,10 +55,10 @@ export function noteChallenge(s,t,target,won){
 export function noteWildResult(s,t,areaId,won){if(!areaId)return;let ai=ensureAmbition(s,t),v=ai.setbacks.find(v=>v.areaId===areaId);if(!v){v={areaId,losses:0,lastAt:0};ai.setbacks.push(v);}v.losses=won?Math.max(0,v.losses-1):Math.min(5,v.losses+1);v.lastAt=s.time;ai.setbacks=ai.setbacks.slice(-12);if(!won)ai.areaUntil=0;}
 export function prepareParty(t,target){
  if(t.manualTeam||t.battleId||t.tournamentId)return false;
- let lead=leadLevel(t),before=t.team.map(f=>f.id).join('|'),chosen=[],types=new Set(),pool=[...t.team,...t.storage].map(f=>({f,type:SPECIES[f.species].type,score:feralPower(f)*(.65+.35*Math.min(1,f.level/lead))*clamp(.65+matchup(f,target.team)*.35,.75,1.3)}));
+ let lead=leadLevel(t),before=t.team.map(f=>f.id).join('|'),chosen=[],types=new Set(),pool=[...t.team,...t.storage].filter(f=>f.id!==t.craft?.helperId).map(f=>({f,type:SPECIES[f.species].type,score:feralPower(f)*(.65+.35*Math.min(1,f.level/lead))*clamp(.65+matchup(f,target.team)*.35,.75,1.3)}));
  // Compute matchup scores once, then use six linear selections instead of repeated sorts.
  while(chosen.length<6&&pool.length){let best=0,bestScore=-Infinity;for(let i=0;i<pool.length;i++){let score=pool[i].score+(types.has(pool[i].type)?0:12);if(score>bestScore){best=i;bestScore=score;}}let entry=pool.splice(best,1)[0];chosen.push(entry.f);types.add(entry.type);}
- let changed=before!==chosen.map(f=>f.id).join('|');if(changed){t.team=chosen;t.storage=pool.map(v=>v.f);}return changed;
+ let changed=before!==chosen.map(f=>f.id).join('|');if(changed){t.team=chosen;t.storage=[...pool.map(v=>v.f),...t.storage.filter(f=>f.id===t.craft?.helperId)];}return changed;
 }
 export function trainingArea(s,t,target=ambitionTarget(s,t)){
  let ai=ensureAmbition(s,t),reachable=reachableAreaIds(s,t),lead=leadLevel(t),preference=trainerPreference(t),known=new Set([...t.team,...t.storage].map(f=>f.species)),counterNeeded=target.team.length&&t.team.every(f=>matchup(f,target.team)<1.15),goalLevel=Math.min(75,Math.max(lead+1,Math.min(lead+3,Math.max(1,...target.team.map(f=>f.level))))),available=habitatGroups(s).filter(g=>reachable.has(g.area.id)&&g.area.requiredBadges<=t.badges.length&&g.area.min<=lead+4&&candidates(s,g.area.biome,g.area).length);

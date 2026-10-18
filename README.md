@@ -1,3 +1,9 @@
+# Feral Regions 3.0.0
+
+The Crafting Update replaces item shops with trainer-made supplies. Start with [START_HERE.md](START_HERE.md) for installation, recipes, homes, helpers, foraging and regional projects. See [VALIDATION.md](VALIDATION.md) for tests and known testing limits.
+
+The notes below describe the earlier foundation; the 3.0.0 guide supersedes references to retail shops and stock orders.
+
 # Feral Regions
 
 **Build a world. Watch a legend.**

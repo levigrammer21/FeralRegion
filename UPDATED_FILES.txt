@@ -1,0 +1,36 @@
+Feral Regions 3.0.0 — Crafting Update
+
+Full release ZIP: place every file directly in your existing repository root.
+Read START_HERE.md for the new systems.
+
+New or changed files:
+AI_STRESS_RESULTS.md
+CHANGELOG.md
+README.md
+START_HERE.md
+VALIDATION.md
+ai-tests.mjs
+app.js
+battle.js
+collection.js
+crafting-tests.mjs
+crafting-ui.js
+crafting.js
+data.js
+housing.js
+index.html
+install-tests.mjs
+job-tests.mjs
+living-tests.mjs
+living.js
+package.json
+problems.js
+region-tools-ui.js
+render.js
+save.js
+simulation.js
+sw.js
+tests.mjs
+trainer-ai.js
+trainer-jobs.js
+upgrade-tests.mjs

@@ -1,3 +1,16 @@
+# 3.0.0 — The Crafting Update
+
+- Supply shops become community workshops; paid retail supply purchases and wholesale restocking are retired.
+- Wild encounters award crafting materials alongside gold.
+- Goal-directed foraging and workshop chores let broke trainers recover.
+- Homes gain upgradeable benches, gardens, reserved Feral helpers and free crafting.
+- Orb making, brewing and advanced crafting specialties improve speed and yield.
+- Added status cures, elemental capture charges and team recovery kits with actual combat effects.
+- Added crafting, foraging, material and surplus-tonic quests, material rewards and recipe unlocks.
+- Added treasury-funded regional garden/workshop projects and trainer contributions.
+- Added live preparation plans, material chests, recipe lists, home/workshop controls and map details.
+- Migrates existing shops and retains business ownership; updated offline cache and save validation.
+
 ## v2.3.0 — Colosseum and Elite Four stadium
 
 - Native pixel-art tournament colosseum (10×8) with tiered Roman arches, banners, entry gate and a full battle court; 32 built-in spectator seats.
